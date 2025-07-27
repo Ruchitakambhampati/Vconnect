@@ -2,12 +2,12 @@ const { Pool } = require('pg');
 
 // Database configuration
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'vconn',
-  password: 'postgres123@', // <-- your real password
+  user: 'post',
+  host: 'dpg-d232o463jp1c739fble0-a',
+  database: 'vcon',
+  password: 'zPBM2PECJFRtCSMfckicC2SSMcgEt0ej', // <-- your real password
   port: 5432,
-  ssl: false
+ 
  
 });
 
