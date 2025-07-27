@@ -1,0 +1,224 @@
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <i data-feather="user-plus" style="width: 48px; height: 48px;" class="text-primary mb-3"></i>
+                        <h2 class="h3 mb-2"><%= __('auth.register.title') %></h2>
+                        <p class="text-muted"><%= __('auth.register.subtitle') %></p>
+                    </div>
+
+                    <% if (error) { %>
+                        <div class="alert alert-danger" role="alert">
+                            <i data-feather="alert-circle" class="me-2" style="width: 16px; height: 16px;"></i>
+                            <%= error %>
+                        </div>
+                    <% } %>
+
+                    <form action="/auth/register" method="POST" class="needs-validation" novalidate>
+                        <!-- Basic Information -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label">
+                                    <i data-feather="user" class="me-1" style="width: 16px; height: 16px;"></i>
+                                    <%= __('auth.register.name') %>
+                                </label>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    id="name" 
+                                    name="name" 
+                                    placeholder="<%= __('auth.register.namePlaceholder') %>"
+                                    required
+                                >
+                                <div class="invalid-feedback">
+                                    <%= __('auth.register.nameRequired') %>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">
+                                    <i data-feather="mail" class="me-1" style="width: 16px; height: 16px;"></i>
+                                    <%= __('auth.register.email') %>
+                                </label>
+                                <input 
+                                    type="email" 
+                                    class="form-control" 
+                                    id="email" 
+                                    name="email" 
+                                    placeholder="<%= __('auth.register.emailPlaceholder') %>"
+                                    required
+                                >
+                                <div class="invalid-feedback">
+                                    <%= __('auth.register.emailRequired') %>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="password" class="form-label">
+                                    <i data-feather="lock" class="me-1" style="width: 16px; height: 16px;"></i>
+                                    <%= __('auth.register.password') %>
+                                </label>
+                                <input 
+                                    type="password" 
+                                    class="form-control" 
+                                    id="password" 
+                                    name="password" 
+                                    placeholder="<%= __('auth.register.passwordPlaceholder') %>"
+                                    required
+                                    minlength="6"
+                                >
+                                <div class="invalid-feedback">
+                                    <%= __('auth.register.passwordRequired') %>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="confirmPassword" class="form-label">
+                                    <i data-feather="lock" class="me-1" style="width: 16px; height: 16px;"></i>
+                                    <%= __('auth.register.confirmPassword') %>
+                                </label>
+                                <input 
+                                    type="password" 
+                                    class="form-control" 
+                                    id="confirmPassword" 
+                                    name="confirmPassword" 
+                                    placeholder="<%= __('auth.register.confirmPasswordPlaceholder') %>"
+                                    required
+                                >
+                                <div class="invalid-feedback">
+                                    <%= __('auth.register.confirmPasswordRequired') %>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="phone" class="form-label">
+                                    <i data-feather="phone" class="me-1" style="width: 16px; height: 16px;"></i>
+                                    <%= __('auth.register.phone') %>
+                                </label>
+                                <input 
+                                    type="tel" 
+                                    class="form-control" 
+                                    id="phone" 
+                                    name="phone" 
+                                    placeholder="<%= __('auth.register.phonePlaceholder') %>"
+                                    required
+                                >
+                                <div class="invalid-feedback">
+                                    <%= __('auth.register.phoneRequired') %>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="role" class="form-label">
+                                    <i data-feather="briefcase" class="me-1" style="width: 16px; height: 16px;"></i>
+                                    <%= __('auth.register.role') %>
+                                </label>
+                                <select class="form-select" id="role" name="role" required>
+                                    <option value=""><%= __('auth.register.selectRole') %></option>
+                                    <option value="vendor"><%= __('auth.register.roleVendor') %></option>
+                                    <option value="wholesaler"><%= __('auth.register.roleWholesaler') %></option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <%= __('auth.register.roleRequired') %>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Business Information (optional) -->
+                        <div class="mb-3">
+                            <label for="businessName" class="form-label">
+                                <i data-feather="building" class="me-1" style="width: 16px; height: 16px;"></i>
+                                <%= __('auth.register.businessName') %>
+                                <small class="text-muted">(<%= __('auth.register.optional') %>)</small>
+                            </label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                id="businessName" 
+                                name="businessName" 
+                                placeholder="<%= __('auth.register.businessNamePlaceholder') %>"
+                            >
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="address" class="form-label">
+                                <i data-feather="map-pin" class="me-1" style="width: 16px; height: 16px;"></i>
+                                <%= __('auth.register.address') %>
+                                <small class="text-muted">(<%= __('auth.register.optional') %>)</small>
+                            </label>
+                            <textarea 
+                                class="form-control" 
+                                id="address" 
+                                name="address" 
+                                rows="2" 
+                                placeholder="<%= __('auth.register.addressPlaceholder') %>"
+                            ></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 mb-3">
+                            <i data-feather="user-plus" class="me-2" style="width: 16px; height: 16px;"></i>
+                            <%= __('auth.register.submit') %>
+                        </button>
+                    </form>
+
+                    <div class="text-center">
+                        <p class="text-muted mb-0">
+                            <%= __('auth.register.hasAccount') %>
+                            <a href="/auth/login" class="text-decoration-none">
+                                <%= __('auth.register.loginLink') %>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    border-radius: 16px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.1);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), #3b82f6);
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #1d4ed8, var(--primary-color));
+    transform: translateY(-1px);
+}
+
+.form-select {
+    border-radius: 8px;
+}
+</style>
+
+<script>
+// Password confirmation validation
+document.getElementById('confirmPassword').addEventListener('input', function() {
+    const password = document.getElementById('password').value;
+    const confirmPassword = this.value;
+    
+    if (password !== confirmPassword) {
+        this.setCustomValidity('<%= __("auth.register.passwordMismatch") %>');
+    } else {
+        this.setCustomValidity('');
+    }
+});
+</script>

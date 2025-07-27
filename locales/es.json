@@ -1,0 +1,479 @@
+{
+  "nav": {
+    "dashboard": "Panel",
+    "contracts": "Contratos",
+    "orders": "Pedidos",
+    "deliveries": "Entregas",
+    "login": "Iniciar Sesión",
+    "register": "Registrarse",
+    "logout": "Cerrar Sesión"
+  },
+  "home": {
+    "hero": {
+      "title": "Conecta Vendedores con Mayoristas",
+      "subtitle": "Un mercado revolucionario que conecta vendedores ambulantes con proveedores mayoristas a través de entregas basadas en contratos inteligentes.",
+      "getStarted": "Comenzar",
+      "login": "Iniciar Sesión"
+    },
+    "features": {
+      "title": "Cómo Funciona VendorConnect",
+      "subtitle": "Conexiones optimizadas entre vendedores y mayoristas",
+      "vendors": {
+        "title": "Para Vendedores Ambulantes",
+        "description": "Accede a productos mayoristas con opciones flexibles de pedido y pago",
+        "feature1": "5 pedidos de prueba gratuitos para probar proveedores",
+        "feature2": "Cancela pedidos hasta 5 veces sin penalización",
+        "feature3": "Suministro garantizado basado en contratos",
+        "feature4": "Sistema de pedidos móvil-amigable",
+        "joinButton": "Únete como Vendedor"
+      },
+      "wholesalers": {
+        "title": "Para Mayoristas",
+        "description": "Expande tu alcance a vendedores ambulantes con pedidos garantizados",
+        "feature1": "Crea contratos de entrega flexibles",
+        "feature2": "Rastrea y gestiona entregas diarias",
+        "feature3": "Construye redes de vendedores confiables",
+        "feature4": "Procesamiento automático de pagos",
+        "joinButton": "Únete como Mayorista"
+      }
+    },
+    "howItWorks": {
+      "title": "Pasos Simples para Comenzar",
+      "subtitle": "Tres pasos fáciles para conectarse y comenzar a comerciar",
+      "step1": {
+        "title": "Regístrate",
+        "description": "Regístrate como vendedor o mayorista con los detalles de tu negocio"
+      },
+      "step2": {
+        "title": "Crea o Navega Contratos",
+        "description": "Los mayoristas crean contratos, los vendedores los navegan y los aceptan"
+      },
+      "step3": {
+        "title": "Comienza a Comerciar",
+        "description": "Realiza pedidos, gestiona entregas y construye relaciones comerciales duraderas"
+      }
+    },
+    "benefits": {
+      "title": "¿Por Qué Elegir VendorConnect?",
+      "benefit1": {
+        "title": "Asociaciones Confiables",
+        "description": "Construye confianza con comercio basado en contratos y usuarios verificados"
+      },
+      "benefit2": {
+        "title": "Términos Flexibles",
+        "description": "Períodos de prueba, opciones de cancelación y términos de contrato adaptables"
+      },
+      "benefit3": {
+        "title": "Oportunidades de Crecimiento",
+        "description": "Expande tu red comercial y aumenta el potencial de ingresos"
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Bienvenido de Vuelta",
+      "subtitle": "Inicia sesión en tu cuenta de VendorConnect",
+      "email": "Correo Electrónico",
+      "emailPlaceholder": "Ingresa tu correo electrónico",
+      "emailRequired": "Por favor ingresa una dirección de correo válida",
+      "password": "Contraseña",
+      "passwordPlaceholder": "Ingresa tu contraseña",
+      "passwordRequired": "Por favor ingresa tu contraseña",
+      "submit": "Iniciar Sesión",
+      "noAccount": "¿No tienes una cuenta?",
+      "registerLink": "Regístrate aquí"
+    },
+    "register": {
+      "title": "Únete a VendorConnect",
+      "subtitle": "Crea tu cuenta para comenzar",
+      "name": "Nombre Completo",
+      "namePlaceholder": "Ingresa tu nombre completo",
+      "nameRequired": "Por favor ingresa tu nombre completo",
+      "email": "Correo Electrónico",
+      "emailPlaceholder": "Ingresa tu correo electrónico",
+      "emailRequired": "Por favor ingresa una dirección de correo válida",
+      "password": "Contraseña",
+      "passwordPlaceholder": "Elige una contraseña fuerte",
+      "passwordRequired": "La contraseña debe tener al menos 6 caracteres",
+      "confirmPassword": "Confirmar Contraseña",
+      "confirmPasswordPlaceholder": "Confirma tu contraseña",
+      "confirmPasswordRequired": "Por favor confirma tu contraseña",
+      "passwordMismatch": "Las contraseñas no coinciden",
+      "phone": "Número de Teléfono",
+      "phonePlaceholder": "Ingresa tu número de teléfono",
+      "phoneRequired": "Por favor ingresa tu número de teléfono",
+      "role": "Rol",
+      "selectRole": "Selecciona tu rol",
+      "roleVendor": "Vendedor Ambulante",
+      "roleWholesaler": "Mayorista",
+      "roleRequired": "Por favor selecciona tu rol",
+      "businessName": "Nombre del Negocio",
+      "businessNamePlaceholder": "Ingresa el nombre de tu negocio",
+      "address": "Dirección",
+      "addressPlaceholder": "Ingresa la dirección de tu negocio",
+      "optional": "opcional",
+      "submit": "Crear Cuenta",
+      "hasAccount": "¿Ya tienes una cuenta?",
+      "loginLink": "Inicia sesión aquí"
+    },
+    "invalidCredentials": "Correo electrónico o contraseña inválidos",
+    "userExists": "Ya existe un usuario con este correo electrónico",
+    "passwordMismatch": "Las contraseñas no coinciden",
+    "invalidRole": "Por favor selecciona un rol válido"
+  },
+  "vendor": {
+    "dashboard": {
+      "title": "Panel del Vendedor",
+      "welcome": "Bienvenido de vuelta",
+      "browseContracts": "Navegar Contratos",
+      "stats": {
+        "totalOrders": "Pedidos Totales",
+        "activeOrders": "Pedidos Activos",
+        "freeAttempts": "Intentos Gratuitos Restantes",
+        "availableContracts": "Contratos Disponibles"
+      },
+      "recentOrders": {
+        "title": "Pedidos Recientes",
+        "viewAll": "Ver Todos los Pedidos",
+        "product": "Producto",
+        "wholesaler": "Mayorista",
+        "quantity": "Cantidad",
+        "amount": "Monto",
+        "status": "Estado",
+        "delivery": "Fecha de Entrega",
+        "empty": "No se encontraron pedidos recientes",
+        "browseContracts": "Navegar Contratos Disponibles"
+      },
+      "quickActions": {
+        "title": "Acciones Rápidas",
+        "findContracts": "Encontrar Contratos",
+        "manageOrders": "Gestionar Pedidos",
+        "help": "Ayuda y FAQ"
+      },
+      "notice": {
+        "title": "Aviso Importante",
+        "freeAttempts": "Intentos Gratuitos Restantes",
+        "remaining": "restantes",
+        "description": "Después de usar los intentos gratuitos, necesitarás aceptar contratos para realizar pedidos."
+      },
+      "help": {
+        "title": "Ayuda y FAQ",
+        "faq1": {
+          "question": "¿Qué son los intentos gratuitos?",
+          "answer": "Los intentos gratuitos te permiten realizar hasta 5 pedidos sin aceptar ningún contrato. Esto te ayuda a probar proveedores y encontrar las mejores asociaciones."
+        },
+        "faq2": {
+          "question": "¿Cómo funcionan los contratos?",
+          "answer": "Los contratos garantizan suministro y precios por una duración específica. Una vez que aceptas un contrato, puedes realizar pedidos ilimitados con ese mayorista."
+        },
+        "faq3": {
+          "question": "¿Puedo cancelar pedidos?",
+          "answer": "Sí, puedes cancelar hasta 5 pedidos. Después de eso, las cancelaciones pueden afectar tu capacidad de realizar nuevos pedidos."
+        }
+      }
+    },
+    "contracts": {
+      "title": "Contratos Disponibles",
+      "subtitle": "Navega y acepta contratos de mayoristas",
+      "search": "Buscar Contratos",
+      "searchPlaceholder": "Buscar productos o mayoristas...",
+      "allLocations": "Todas las Ubicaciones",
+      "allCategories": "Todas las Categorías",
+      "by": "por",
+      "perUnit": "por unidad",
+      "dailyQuantity": "Cantidad Diaria",
+      "duration": "Duración",
+      "endDate": "Fecha de Fin",
+      "totalValue": "Valor Total",
+      "placeOrder": "Realizar Pedido",
+      "accept": "Aceptar Contrato",
+      "available": {
+        "title": "Contratos Disponibles",
+        "empty": "No hay contratos disponibles",
+        "emptyDesc": "Intenta ajustar tus filtros de búsqueda o vuelve más tarde para nuevos contratos."
+      },
+      "myContracts": {
+        "title": "Mis Contratos Aceptados",
+        "empty": "Aún no se han aceptado contratos"
+      },
+      "accepted": "Aceptado el",
+      "order": "Pedido",
+      "tips": {
+        "title": "Consejos para el Éxito",
+        "tip1": "Revisa cuidadosamente los términos del contrato antes de aceptar",
+        "tip2": "Usa intentos gratuitos para probar nuevos proveedores",
+        "tip3": "Construye relaciones con mayoristas confiables"
+      },
+      "searchContracts": "Buscar Contratos",
+      "advancedSearch": "Búsqueda Avanzada",
+      "searchProduct": "Nombre del Producto",
+      "searchProductPlaceholder": "ej., Tomates, Arroz, Leche",
+      "location": "Ubicación",
+      "minPrice": "Precio Mínimo",
+      "maxPrice": "Precio Máximo",
+      "product": "Producto",
+      "pricePerUnit": "Precio por Unidad",
+      "quantity": "Cantidad",
+      "quantityHelp": "Ingresa la cantidad que deseas pedir",
+      "totalAmount": "Monto Total",
+      "confirmOrder": "Confirmar Pedido",
+      "quantityRequired": "Por favor ingresa una cantidad válida"
+    },
+    "orders": {
+      "title": "Mis Pedidos",
+      "subtitle": "Ve y gestiona tus pedidos",
+      "newOrder": "Realizar Nuevo Pedido",
+      "stats": {
+        "freeAttempts": "Intentos Gratuitos Restantes",
+        "cancellationsLeft": "Cancelaciones Restantes",
+        "completed": "Pedidos Completados",
+        "active": "Pedidos Activos"
+      },
+      "myOrders": "Mis Pedidos",
+      "allStatuses": "Todos los Estados",
+      "print": "Imprimir",
+      "table": {
+        "orderId": "ID del Pedido",
+        "product": "Producto",
+        "wholesaler": "Mayorista",
+        "quantity": "Cantidad",
+        "amount": "Monto",
+        "status": "Estado",
+        "deliveryDate": "Fecha de Entrega",
+        "actions": "Acciones"
+      },
+      "cancelOrder": "Cancelar Pedido",
+      "empty": {
+        "title": "Aún no hay pedidos",
+        "description": "Comienza navegando los contratos disponibles y realizando tu primer pedido",
+        "browseContracts": "Navegar Contratos"
+      },
+      "info": {
+        "freeAttempts": {
+          "title": "Intentos Gratuitos",
+          "description": "Obtienes 5 intentos gratuitos para realizar pedidos sin aceptar contratos.",
+          "benefit1": "Prueba diferentes proveedores",
+          "benefit2": "No se requiere compromiso",
+          "benefit3": "Encuentra las mejores asociaciones"
+        },
+        "cancellation": {
+          "title": "Cancelación de Pedidos",
+          "description": "Puedes cancelar hasta 5 pedidos. Usa esta función sabiamente para evitar restricciones.",
+          "limit": "Cancelaciones restantes",
+          "remaining": "restantes"
+        }
+      }
+    }
+  },
+  "wholesaler": {
+    "dashboard": {
+      "title": "Panel del Mayorista",
+      "welcome": "Bienvenido de vuelta",
+      "createContract": "Crear Contrato",
+      "stats": {
+        "activeContracts": "Contratos Activos",
+        "todayDeliveries": "Entregas de Hoy",
+        "todayEarnings": "Ganancias de Hoy",
+        "contractsEndingSoon": "Contratos que Terminan Pronto"
+      },
+      "todayDeliveries": {
+        "title": "Entregas de Hoy",
+        "viewAll": "Ver Todas las Entregas",
+        "vendor": "Vendedor",
+        "product": "Producto",
+        "quantity": "Cantidad",
+        "amount": "Monto",
+        "status": "Estado",
+        "action": "Acción",
+        "empty": "No hay entregas programadas para hoy",
+        "manageContracts": "Gestionar Contratos"
+      },
+      "markDelivered": "Marcar como Entregado",
+      "quickActions": {
+        "title": "Acciones Rápidas",
+        "createContract": "Crear Contrato",
+        "manageDeliveries": "Gestionar Entregas",
+        "viewContracts": "Ver Contratos"
+      },
+      "contractsEndingSoon": {
+        "title": "Contratos que Terminan Pronto",
+        "endDate": "Fecha de Fin",
+        "daysLeft": "días restantes",
+        "extend": "Extender"
+      },
+      "allGood": {
+        "title": "¡Todo Bien!",
+        "message": "No hay contratos que terminen pronto. ¡Sigue con el excelente trabajo!"
+      },
+      "createContractModal": {
+        "title": "Crear Nuevo Contrato",
+        "productName": "Nombre del Producto",
+        "productNameRequired": "Por favor ingresa el nombre del producto",
+        "dailyQuantity": "Cantidad Diaria",
+        "dailyQuantityRequired": "Por favor ingresa la cantidad diaria",
+        "pricePerUnit": "Precio por Unidad",
+        "pricePerUnitRequired": "Por favor ingresa el precio por unidad",
+        "duration": "Duración del Contrato",
+        "durationRequired": "Por favor ingresa la duración del contrato",
+        "days": "días",
+        "description": "Descripción",
+        "descriptionPlaceholder": "Describe tu producto, calidad, términos de entrega...",
+        "note": "Nota: Una vez creado, el contrato será visible para todos los vendedores en tu área.",
+        "create": "Crear Contrato"
+      }
+    },
+    "contracts": {
+      "title": "Mis Contratos",
+      "subtitle": "Gestiona tus contratos mayoristas",
+      "createNew": "Crear Nuevo",
+      "stats": {
+        "active": "Contratos Activos",
+        "totalVendors": "Vendedores Totales",
+        "totalOrders": "Pedidos Totales",
+        "endingSoon": "Terminando Pronto"
+      },
+      "searchPlaceholder": "Buscar contratos...",
+      "allStatuses": "Todos los Estados",
+      "sortBy": {
+        "newest": "Más Nuevos Primero",
+        "endDate": "Fecha de Fin",
+        "product": "Nombre del Producto",
+        "price": "Precio"
+      },
+      "export": "Exportar",
+      "refresh": "Actualizar",
+      "dailyQuantity": "Cantidad Diaria",
+      "pricePerUnit": "Precio por Unidad",
+      "duration": "Duración",
+      "acceptedVendors": "Vendedores Aceptados",
+      "created": "Creado",
+      "endDate": "Fecha de Fin",
+      "totalValue": "Valor Total",
+      "edit": "Editar",
+      "viewOrders": "Ver Pedidos",
+      "deactivate": "Desactivar",
+      "orders": "Pedidos",
+      "vendors": "Vendedores",
+      "empty": {
+        "title": "Aún no hay contratos",
+        "description": "Crea tu primer contrato para comenzar a conectarte con vendedores",
+        "createFirst": "Crear Primer Contrato"
+      },
+      "createModal": {
+        "title": "Crear Nuevo Contrato",
+        "productName": "Nombre del Producto",
+        "productNameRequired": "Por favor ingresa el nombre del producto",
+        "dailyQuantity": "Cantidad Diaria",
+        "dailyQuantityRequired": "Por favor ingresa la cantidad diaria",
+        "pricePerUnit": "Precio por Unidad",
+        "pricePerUnitRequired": "Por favor ingresa el precio por unidad",
+        "duration": "Duración del Contrato",
+        "durationRequired": "Por favor ingresa la duración del contrato",
+        "days": "días",
+        "description": "Descripción",
+        "descriptionPlaceholder": "Describe tu producto, calidad, términos de entrega...",
+        "note": "Nota: Una vez creado, el contrato será visible para todos los vendedores en tu área.",
+        "create": "Crear Contrato"
+      },
+      "editFeature": "Función de edición próximamente",
+      "vendorListFeature": "Función de lista de vendedores próximamente",
+      "exportFeature": "Función de exportación próximamente"
+    },
+    "deliveries": {
+      "title": "Gestión de Entregas",
+      "subtitle": "Rastrea y gestiona tus entregas diarias",
+      "export": "Exportar Entregas",
+      "stats": {
+        "totalDeliveries": "Entregas Totales",
+        "pending": "Pendientes",
+        "completed": "Completadas",
+        "totalEarnings": "Ganancias Totales"
+      },
+      "previousDay": "Día Anterior",
+      "today": "Hoy",
+      "nextDay": "Día Siguiente",
+      "deliveriesFor": "Entregas para",
+      "allStatuses": "Todos los Estados",
+      "markAllDelivered": "Marcar Todas como Entregadas",
+      "table": {
+        "vendor": "Vendedor",
+        "product": "Producto",
+        "quantity": "Cantidad",
+        "amount": "Monto",
+        "status": "Estado",
+        "orderTime": "Hora del Pedido",
+        "actions": "Acciones"
+      },
+      "markDelivered": "Marcar como Entregado",
+      "contactVendor": "Contactar Vendedor",
+      "empty": {
+        "title": "No hay entregas programadas",
+        "description": "No se encontraron entregas para la fecha seleccionada",
+        "goToToday": "Ir a Hoy",
+        "manageContracts": "Gestionar Contratos"
+      },
+      "tips": {
+        "title": "Consejos de Entrega",
+        "tip1": "Marca las entregas como completadas prontamente",
+        "tip2": "Contacta a los vendedores si hay algún problema",
+        "tip3": "Exporta reportes de entrega para mantener registros"
+      },
+      "performance": {
+        "title": "Rendimiento de Hoy",
+        "completionRate": "Tasa de Finalización",
+        "todayEarnings": "Ganancias de Hoy"
+      },
+      "confirmMarkAll": "¿Estás seguro de que quieres marcar todas las entregas pendientes como completadas?",
+      "noPhoneNumber": "No hay número de teléfono disponible para este vendedor",
+      "exportFeature": "Función de exportación próximamente"
+    }
+  },
+  "contract": {
+    "status": {
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "expired": "Expirado"
+    },
+    "accepted": "Contrato aceptado exitosamente",
+    "created": "Contrato creado exitosamente",
+    "updated": "Contrato actualizado exitosamente",
+    "deactivated": "Contrato desactivado exitosamente",
+    "notFound": "Contrato no encontrado"
+  },
+  "order": {
+    "status": {
+      "pending": "Pendiente",
+      "confirmed": "Confirmado",
+      "delivered": "Entregado",
+      "cancelled": "Cancelado"
+    },
+    "placed": "Pedido realizado exitosamente",
+    "cancelled": "Pedido cancelado exitosamente",
+    "marked_delivered": "Pedido marcado como entregado",
+    "notFound": "Pedido no encontrado"
+  },
+  "error": {
+    "general": "Algo salió mal. Por favor intenta de nuevo.",
+    "notFound": "Página no encontrada",
+    "accessDenied": "Acceso denegado"
+  },
+  "common": {
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "view": "Ver",
+    "loading": "Cargando...",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "export": "Exportar",
+    "print": "Imprimir",
+    "refresh": "Actualizar"
+  },
+  "footer": {
+    "description": "Conectando vendedores y mayoristas a través de contratos inteligentes",
+    "rights": "Todos los derechos reservados."
+  }
+}

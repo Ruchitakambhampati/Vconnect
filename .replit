@@ -1,0 +1,41 @@
+modules = ["nodejs-20"]
+
+[nix]
+channel = "stable-25_05"
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "VendorConnect Server"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "server"
+
+[[workflows.workflow]]
+name = "VendorConnect Server"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm install && node server.js"
+waitForPort = 5000
+
+[[workflows.workflow]]
+name = "server"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd /home/runner/workspace && npm install express express-session connect-pg-simple bcrypt i18n pg ejs express-ejs-layouts && npm start"
+
+[[ports]]
+localPort = 5000
+externalPort = 80

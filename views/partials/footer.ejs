@@ -1,0 +1,40 @@
+<!-- Additional scripts and footer content can be placed here -->
+
+<!-- Analytics placeholder -->
+<script>
+  // Google Analytics or other analytics code would go here
+  // Example:
+  // gtag('config', 'GA_MEASUREMENT_ID');
+</script>
+
+<!-- Service Worker Registration (for PWA) -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then((registration) => {
+          console.log('SW registered: ', registration);
+        })
+        .catch((registrationError) => {
+          console.log('SW registration failed: ', registrationError);
+        });
+    });
+  }
+</script>
+
+<!-- Emergency contact or support information -->
+<div class="d-none" id="emergency-contacts">
+  <div data-support-phone="+91-1234567890" data-support-email="support@vendorconnect.com"></div>
+</div>
+
+<!-- Toast notifications container -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3" id="toast-container"></div>
+
+<!-- Loading overlay -->
+<div id="loading-overlay" class="d-none position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50" style="z-index: 9999;">
+  <div class="d-flex justify-content-center align-items-center h-100">
+    <div class="spinner-border text-light" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</div>

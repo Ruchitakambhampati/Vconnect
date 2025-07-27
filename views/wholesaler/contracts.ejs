@@ -1,0 +1,421 @@
+
+
+<div class="container-fluid">
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-1"><%= __('wholesaler.contracts.title') %></h1>
+            <p class="text-muted mb-0">
+                <%= __('wholesaler.contracts.subtitle') %>
+            </p>
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contractModal">
+                <i data-feather="plus" class="me-2"></i>
+                <%= __('wholesaler.contracts.createNew') %>
+            </button>
+        </div>
+    </div>
+
+    <!-- Contract Statistics -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="card border-start border-primary border-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-grow-1">
+                            <div class="fw-bold h4 text-primary">
+                                <%= contracts.filter(c => c.status === 'active').length %>
+                            </div>
+                            <div class="text-muted small">
+                                <i data-feather="file-text" class="me-1"></i>
+                                <%= __('wholesaler.contracts.stats.active') %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card border-start border-success border-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-grow-1">
+                            <div class="fw-bold h4 text-success">
+                                <%= contracts.reduce((sum, c) => sum + (c.accepted_vendors || 0), 0) %>
+                            </div>
+                            <div class="text-muted small">
+                                <i data-feather="users" class="me-1"></i>
+                                <%= __('wholesaler.contracts.stats.totalVendors') %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card border-start border-warning border-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-grow-1">
+                            <div class="fw-bold h4 text-warning">
+                                <%= contracts.reduce((sum, c) => sum + (c.total_orders || 0), 0) %>
+                            </div>
+                            <div class="text-muted small">
+                                <i data-feather="shopping-cart" class="me-1"></i>
+                                <%= __('wholesaler.contracts.stats.totalOrders') %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card border-start border-info border-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-grow-1">
+                            <div class="fw-bold h4 text-info">
+                                <%= contracts.filter(c => new Date(c.end_date) <= new Date(Date.now() + 7*24*60*60*1000)).length %>
+                            </div>
+                            <div class="text-muted small">
+                                <i data-feather="alert-circle" class="me-1"></i>
+                                <%= __('wholesaler.contracts.stats.endingSoon') %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="searchContracts" 
+                           placeholder="<%= __('wholesaler.contracts.searchPlaceholder') %>">
+                </div>
+                <div class="col-md-2">
+                    <select class="form-select" id="statusFilter">
+                        <option value=""><%= __('wholesaler.contracts.allStatuses') %></option>
+                        <option value="active"><%= __('contract.status.active') %></option>
+                        <option value="inactive"><%= __('contract.status.inactive') %></option>
+                        <option value="expired"><%= __('contract.status.expired') %></option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select class="form-select" id="sortBy">
+                        <option value="created_at"><%= __('wholesaler.contracts.sortBy.newest') %></option>
+                        <option value="end_date"><%= __('wholesaler.contracts.sortBy.endDate') %></option>
+                        <option value="product_name"><%= __('wholesaler.contracts.sortBy.product') %></option>
+                        <option value="price_per_unit"><%= __('wholesaler.contracts.sortBy.price') %></option>
+                    </select>
+                </div>
+                <div class="col-md-4 text-end">
+                    <button class="btn btn-outline-secondary me-2" onclick="exportContracts()">
+                        <i data-feather="download" class="me-1"></i>
+                        <%= __('wholesaler.contracts.export') %>
+                    </button>
+                    <button class="btn btn-outline-info" onclick="refreshContracts()">
+                        <i data-feather="refresh-cw" class="me-1"></i>
+                        <%= __('wholesaler.contracts.refresh') %>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contracts List -->
+    <div class="row g-4" id="contractsList">
+        <% if (contracts && contracts.length > 0) { %>
+            <% contracts.forEach(contract => { %>
+                <div class="col-lg-6 contract-item" data-status="<%= contract.status %>" data-product="<%= contract.product_name.toLowerCase() %>">
+                    <div class="card contract-card h-100 <%= contract.status === 'active' ? 'active' : contract.status === 'inactive' ? 'expired' : '' %>">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0 contract-title"><%= contract.product_name %></h6>
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="dropdown">
+                                    <i data-feather="more-horizontal"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <button class="dropdown-item" onclick="editContract(<%= contract.id %>)">
+                                            <i data-feather="edit" class="me-2"></i>
+                                            <%= __('wholesaler.contracts.edit') %>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" onclick="viewOrders(<%= contract.id %>)">
+                                            <i data-feather="eye" class="me-2"></i>
+                                            <%= __('wholesaler.contracts.viewOrders') %>
+                                        </button>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <button class="dropdown-item text-danger" onclick="ContractManager.deactivateContract(<%= contract.id %>, this)">
+                                            <i data-feather="pause-circle" class="me-2"></i>
+                                            <%= __('wholesaler.contracts.deactivate') %>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="contract-details mb-3">
+                                <div class="contract-detail">
+                                    <div class="contract-detail-label"><%= __('wholesaler.contracts.dailyQuantity') %></div>
+                                    <div class="contract-detail-value"><%= contract.daily_quantity %> units</div>
+                                </div>
+                                <div class="contract-detail">
+                                    <div class="contract-detail-label"><%= __('wholesaler.contracts.pricePerUnit') %></div>
+                                    <div class="contract-detail-value">₹<%= contract.price_per_unit %></div>
+                                </div>
+                                <div class="contract-detail">
+                                    <div class="contract-detail-label"><%= __('wholesaler.contracts.duration') %></div>
+                                    <div class="contract-detail-value"><%= contract.duration_days %> days</div>
+                                </div>
+                                <div class="contract-detail">
+                                    <div class="contract-detail-label"><%= __('wholesaler.contracts.acceptedVendors') %></div>
+                                    <div class="contract-detail-value"><%= contract.accepted_vendors || 0 %></div>
+                                </div>
+                            </div>
+
+                            <% if (contract.description) { %>
+                                <p class="text-muted small mb-3"><%= contract.description %></p>
+                            <% } %>
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <small class="text-muted">
+                                        <%= __('wholesaler.contracts.created') %>: 
+                                        <%= new Date(contract.created_at).toLocaleDateString() %>
+                                    </small>
+                                </div>
+                                <div>
+                                    <small class="text-muted">
+                                        <%= __('wholesaler.contracts.endDate') %>: 
+                                        <%= new Date(contract.end_date).toLocaleDateString() %>
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="progress mb-3" style="height: 6px;">
+                                <% 
+                                    const totalDuration = contract.duration_days;
+                                    const startDate = new Date(contract.created_at);
+                                    const endDate = new Date(contract.end_date);
+                                    const today = new Date();
+                                    const elapsed = Math.min((today - startDate) / (endDate - startDate) * 100, 100);
+                                %>
+                                <div class="progress-bar <%= elapsed > 80 ? 'bg-warning' : 'bg-success' %>" 
+                                     style="width: <%= elapsed %>%"></div>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="status-badge status-<%= contract.status %>">
+                                    <%= __('contract.status.' + contract.status) %>
+                                </span>
+                                <div>
+                                    <span class="fw-bold text-success">
+                                        ₹<%= (contract.daily_quantity * contract.price_per_unit * contract.duration_days).toLocaleString() %>
+                                    </span>
+                                    <small class="text-muted d-block"><%= __('wholesaler.contracts.totalValue') %></small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <div class="row g-2">
+                                <div class="col">
+                                    <button class="btn btn-outline-primary btn-sm w-100" onclick="viewOrders(<%= contract.id %>)">
+                                        <i data-feather="shopping-cart" class="me-1"></i>
+                                        <%= contract.total_orders || 0 %> <%= __('wholesaler.contracts.orders') %>
+                                    </button>
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-outline-success btn-sm w-100" onclick="viewVendors(<%= contract.id %>)">
+                                        <i data-feather="users" class="me-1"></i>
+                                        <%= contract.accepted_vendors || 0 %> <%= __('wholesaler.contracts.vendors') %>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body text-center py-5">
+                        <i data-feather="file-text" style="width: 64px; height: 64px;" class="text-muted mb-3"></i>
+                        <h5 class="text-muted"><%= __('wholesaler.contracts.empty.title') %></h5>
+                        <p class="text-muted mb-4"><%= __('wholesaler.contracts.empty.description') %></p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contractModal">
+                            <i data-feather="plus" class="me-2"></i>
+                            <%= __('wholesaler.contracts.empty.createFirst') %>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</div>
+
+<!-- Create/Edit Contract Modal -->
+<div class="modal fade" id="contractModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i data-feather="plus-circle" class="me-2"></i>
+                    <%= __('wholesaler.contracts.createModal.title') %>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="contractForm" class="needs-validation" novalidate>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="productName" class="form-label">
+                                <%= __('wholesaler.contracts.createModal.productName') %>
+                            </label>
+                            <input type="text" class="form-control" id="productName" name="productName" required>
+                            <div class="invalid-feedback">
+                                <%= __('wholesaler.contracts.createModal.productNameRequired') %>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="dailyQuantity" class="form-label">
+                                <%= __('wholesaler.contracts.createModal.dailyQuantity') %>
+                            </label>
+                            <input type="number" class="form-control" id="dailyQuantity" name="dailyQuantity" min="1" required>
+                            <div class="invalid-feedback">
+                                <%= __('wholesaler.contracts.createModal.dailyQuantityRequired') %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="pricePerUnit" class="form-label">
+                                <%= __('wholesaler.contracts.createModal.pricePerUnit') %>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text">₹</span>
+                                <input type="number" class="form-control" id="pricePerUnit" name="pricePerUnit" step="0.01" min="0.01" required>
+                            </div>
+                            <div class="invalid-feedback">
+                                <%= __('wholesaler.contracts.createModal.pricePerUnitRequired') %>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="duration" class="form-label">
+                                <%= __('wholesaler.contracts.createModal.duration') %>
+                            </label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="duration" name="duration" min="1" max="365" required>
+                                <span class="input-group-text"><%= __('wholesaler.contracts.createModal.days') %></span>
+                            </div>
+                            <div class="invalid-feedback">
+                                <%= __('wholesaler.contracts.createModal.durationRequired') %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">
+                            <%= __('wholesaler.contracts.createModal.description') %>
+                        </label>
+                        <textarea class="form-control" id="description" name="description" rows="3" 
+                                  placeholder="<%= __('wholesaler.contracts.createModal.descriptionPlaceholder') %>"></textarea>
+                    </div>
+                    <div class="alert alert-info">
+                        <i data-feather="info" class="me-2"></i>
+                        <%= __('wholesaler.contracts.createModal.note') %>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <%= __('common.cancel') %>
+                </button>
+                <button type="button" class="btn btn-primary" onclick="submitContract()">
+                    <i data-feather="check" class="me-2"></i>
+                    <%= __('wholesaler.contracts.createModal.create') %>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Filter functionality
+document.getElementById('searchContracts').addEventListener('input', filterContracts);
+document.getElementById('statusFilter').addEventListener('change', filterContracts);
+
+function filterContracts() {
+    const searchTerm = document.getElementById('searchContracts').value.toLowerCase();
+    const statusFilter = document.getElementById('statusFilter').value;
+    const contracts = document.querySelectorAll('.contract-item');
+    
+    contracts.forEach(contract => {
+        const productName = contract.dataset.product;
+        const status = contract.dataset.status;
+        
+        const matchesSearch = productName.includes(searchTerm);
+        const matchesStatus = !statusFilter || status === statusFilter;
+        
+        if (matchesSearch && matchesStatus) {
+            contract.style.display = '';
+        } else {
+            contract.style.display = 'none';
+        }
+    });
+}
+
+function submitContract() {
+    const form = document.getElementById('contractForm');
+    const button = event.target;
+    
+    if (!form.checkValidity()) {
+        form.classList.add('was-validated');
+        return;
+    }
+    
+    const formData = {
+        productName: document.getElementById('productName').value,
+        dailyQuantity: document.getElementById('dailyQuantity').value,
+        pricePerUnit: document.getElementById('pricePerUnit').value,
+        duration: document.getElementById('duration').value,
+        description: document.getElementById('description').value
+    };
+    
+    ContractManager.createContract(formData, button);
+}
+
+function editContract(contractId) {
+    VendorConnect.showAlert('<%= __("wholesaler.contracts.editFeature") %>', 'info');
+}
+
+function viewOrders(contractId) {
+    window.location.href = `/wholesaler/deliveries?contract=${contractId}`;
+}
+
+function viewVendors(contractId) {
+    VendorConnect.showAlert('<%= __("wholesaler.contracts.vendorListFeature") %>', 'info');
+}
+
+function exportContracts() {
+    VendorConnect.showAlert('<%= __("wholesaler.contracts.exportFeature") %>', 'info');
+}
+
+function refreshContracts() {
+    location.reload();
+}
+</script>
+
+<style>
+.border-start { border-left-width: 4px !important; }
+</style>

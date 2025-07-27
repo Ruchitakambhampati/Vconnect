@@ -1,0 +1,372 @@
+
+
+<div class="container-fluid">
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-1"><%= __('wholesaler.deliveries.title') %></h1>
+            <p class="text-muted mb-0">
+                <%= __('wholesaler.deliveries.subtitle') %>
+            </p>
+        </div>
+        <div class="d-flex gap-2">
+            <input type="date" class="form-control" id="dateSelector" value="<%= selectedDate %>" 
+                   onchange="changeDate(this.value)" style="width: auto;">
+            <button class="btn btn-outline-secondary" onclick="exportDeliveries()">
+                <i data-feather="download" class="me-1"></i>
+                <%= __('wholesaler.deliveries.export') %>
+            </button>
+        </div>
+    </div>
+
+    <!-- Delivery Summary for Selected Date -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="card border-start border-primary border-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-grow-1">
+                            <div class="fw-bold h4 text-primary">
+                                <%= deliveries.length %>
+                            </div>
+                            <div class="text-muted small">
+                                <i data-feather="truck" class="me-1"></i>
+                                <%= __('wholesaler.deliveries.stats.totalDeliveries') %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card border-start border-warning border-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-grow-1">
+                            <div class="fw-bold h4 text-warning">
+                                <%= deliveries.filter(d => d.status === 'pending' || d.status === 'confirmed').length %>
+                            </div>
+                            <div class="text-muted small">
+                                <i data-feather="clock" class="me-1"></i>
+                                <%= __('wholesaler.deliveries.stats.pending') %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card border-start border-success border-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-grow-1">
+                            <div class="fw-bold h4 text-success">
+                                <%= deliveries.filter(d => d.status === 'delivered').length %>
+                            </div>
+                            <div class="text-muted small">
+                                <i data-feather="check-circle" class="me-1"></i>
+                                <%= __('wholesaler.deliveries.stats.completed') %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card border-start border-info border-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-grow-1">
+                            <div class="fw-bold h4 text-info">
+                                ₹<%= deliveries.filter(d => d.status === 'delivered').reduce((sum, d) => sum + (d.total_amount || 0), 0).toLocaleString() %>
+                            </div>
+                            <div class="text-muted small">
+                                <i data-feather="dollar-sign" class="me-1"></i>
+                                <%= __('wholesaler.deliveries.stats.totalEarnings') %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Date Navigation -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="d-flex justify-content-center gap-2 flex-wrap">
+                <button class="btn btn-outline-secondary btn-sm" onclick="navigateDate(-1)">
+                    <i data-feather="chevron-left" class="me-1"></i>
+                    <%= __('wholesaler.deliveries.previousDay') %>
+                </button>
+                <button class="btn btn-outline-primary btn-sm" onclick="navigateToToday()">
+                    <i data-feather="calendar" class="me-1"></i>
+                    <%= __('wholesaler.deliveries.today') %>
+                </button>
+                <button class="btn btn-outline-secondary btn-sm" onclick="navigateDate(1)">
+                    <%= __('wholesaler.deliveries.nextDay') %>
+                    <i data-feather="chevron-right" class="ms-1"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Deliveries List -->
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">
+                <i data-feather="list" class="me-2"></i>
+                <%= __('wholesaler.deliveries.deliveriesFor') %> 
+                <%= new Date(selectedDate).toLocaleDateString() %>
+            </h5>
+            <div class="d-flex gap-2">
+                <select class="form-select form-select-sm" id="statusFilter" style="width: auto;">
+                    <option value=""><%= __('wholesaler.deliveries.allStatuses') %></option>
+                    <option value="pending"><%= __('order.status.pending') %></option>
+                    <option value="confirmed"><%= __('order.status.confirmed') %></option>
+                    <option value="delivered"><%= __('order.status.delivered') %></option>
+                    <option value="cancelled"><%= __('order.status.cancelled') %></option>
+                </select>
+                <button class="btn btn-sm btn-success" onclick="markAllDelivered()" 
+                        <% if (deliveries.filter(d => d.status === 'pending' || d.status === 'confirmed').length === 0) { %>disabled<% } %>>
+                    <i data-feather="check-circle" class="me-1"></i>
+                    <%= __('wholesaler.deliveries.markAllDelivered') %>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <% if (deliveries && deliveries.length > 0) { %>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th><%= __('wholesaler.deliveries.table.vendor') %></th>
+                                <th><%= __('wholesaler.deliveries.table.product') %></th>
+                                <th><%= __('wholesaler.deliveries.table.quantity') %></th>
+                                <th><%= __('wholesaler.deliveries.table.amount') %></th>
+                                <th><%= __('wholesaler.deliveries.table.status') %></th>
+                                <th><%= __('wholesaler.deliveries.table.orderTime') %></th>
+                                <th><%= __('wholesaler.deliveries.table.actions') %></th>
+                            </tr>
+                        </thead>
+                        <tbody id="deliveriesTable">
+                            <% deliveries.forEach(delivery => { %>
+                                <tr class="delivery-row" data-status="<%= delivery.status %>">
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div>
+                                                <strong><%= delivery.vendor_name %></strong>
+                                                <% if (delivery.vendor_phone) { %>
+                                                    <br>
+                                                    <small class="text-muted">
+                                                        <i data-feather="phone" style="width: 12px; height: 12px;"></i>
+                                                        <a href="tel:<%= delivery.vendor_phone %>" class="text-decoration-none">
+                                                            <%= delivery.vendor_phone %>
+                                                        </a>
+                                                    </small>
+                                                <% } %>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <strong><%= delivery.product_name %></strong>
+                                        <br>
+                                        <small class="text-muted">Order #<%= delivery.id %></small>
+                                    </td>
+                                    <td>
+                                        <span class="fw-bold"><%= delivery.quantity %></span> units
+                                    </td>
+                                    <td>
+                                        <span class="fw-bold text-success">₹<%= delivery.total_amount.toLocaleString() %></span>
+                                    </td>
+                                    <td>
+                                        <span class="status-badge status-<%= delivery.status %>">
+                                            <%= __('order.status.' + delivery.status) %>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <small class="text-muted">
+                                            <%= new Date(delivery.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) %>
+                                        </small>
+                                    </td>
+                                    <td>
+                                        <% if (delivery.status === 'pending' || delivery.status === 'confirmed') { %>
+                                            <button type="button" class="btn btn-sm btn-success me-1" 
+                                                    onclick="OrderManager.markDelivered(<%= delivery.id %>, this)"
+                                                    title="<%= __('wholesaler.deliveries.markDelivered') %>">
+                                                <i data-feather="check" style="width: 14px; height: 14px;"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-outline-info" 
+                                                    onclick="contactVendor('<%= delivery.vendor_phone %>', '<%= delivery.vendor_name %>')"
+                                                    title="<%= __('wholesaler.deliveries.contactVendor') %>">
+                                                <i data-feather="phone" style="width: 14px; height: 14px;"></i>
+                                            </button>
+                                        <% } else { %>
+                                            <span class="text-muted">-</span>
+                                        <% } %>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            <% } else { %>
+                <div class="text-center py-5">
+                    <i data-feather="calendar" style="width: 64px; height: 64px;" class="text-muted mb-3"></i>
+                    <h5 class="text-muted"><%= __('wholesaler.deliveries.empty.title') %></h5>
+                    <p class="text-muted mb-4"><%= __('wholesaler.deliveries.empty.description') %></p>
+                    <div class="d-flex justify-content-center gap-2">
+                        <button class="btn btn-outline-secondary" onclick="navigateToToday()">
+                            <%= __('wholesaler.deliveries.empty.goToToday') %>
+                        </button>
+                        <a href="/wholesaler/contracts" class="btn btn-primary">
+                            <%= __('wholesaler.deliveries.empty.manageContracts') %>
+                        </a>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- Delivery Instructions -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-info bg-opacity-10">
+                    <h6 class="mb-0 text-info">
+                        <i data-feather="info" class="me-2"></i>
+                        <%= __('wholesaler.deliveries.tips.title') %>
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0 small">
+                        <li class="mb-2">
+                            <i data-feather="check" class="text-success me-2" style="width: 14px; height: 14px;"></i>
+                            <%= __('wholesaler.deliveries.tips.tip1') %>
+                        </li>
+                        <li class="mb-2">
+                            <i data-feather="check" class="text-success me-2" style="width: 14px; height: 14px;"></i>
+                            <%= __('wholesaler.deliveries.tips.tip2') %>
+                        </li>
+                        <li class="mb-0">
+                            <i data-feather="check" class="text-success me-2" style="width: 14px; height: 14px;"></i>
+                            <%= __('wholesaler.deliveries.tips.tip3') %>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-success bg-opacity-10">
+                    <h6 class="mb-0 text-success">
+                        <i data-feather="trending-up" class="me-2"></i>
+                        <%= __('wholesaler.deliveries.performance.title') %>
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="small"><%= __('wholesaler.deliveries.performance.completionRate') %></span>
+                        <span class="fw-bold">
+                            <% 
+                                const completionRate = deliveries.length > 0 ? 
+                                    Math.round((deliveries.filter(d => d.status === 'delivered').length / deliveries.length) * 100) : 0;
+                            %>
+                            <%= completionRate %>%
+                        </span>
+                    </div>
+                    <div class="progress mb-3" style="height: 6px;">
+                        <div class="progress-bar bg-success" style="width: <%= completionRate %>%"></div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="small"><%= __('wholesaler.deliveries.performance.todayEarnings') %></span>
+                        <span class="fw-bold text-success">
+                            ₹<%= deliveries.filter(d => d.status === 'delivered').reduce((sum, d) => sum + (d.total_amount || 0), 0).toLocaleString() %>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function changeDate(newDate) {
+    window.location.href = `/wholesaler/deliveries?date=${newDate}`;
+}
+
+function navigateDate(days) {
+    const currentDate = new Date('<%= selectedDate %>');
+    currentDate.setDate(currentDate.getDate() + days);
+    const newDate = currentDate.toISOString().split('T')[0];
+    changeDate(newDate);
+}
+
+function navigateToToday() {
+    const today = new Date().toISOString().split('T')[0];
+    changeDate(today);
+}
+
+// Status filter functionality
+document.getElementById('statusFilter').addEventListener('change', function() {
+    const selectedStatus = this.value;
+    const rows = document.querySelectorAll('.delivery-row');
+    
+    rows.forEach(row => {
+        if (selectedStatus === '' || row.dataset.status === selectedStatus) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+});
+
+function markAllDelivered() {
+    if (!confirm('<%= __("wholesaler.deliveries.confirmMarkAll") %>')) {
+        return;
+    }
+    
+    const pendingRows = document.querySelectorAll('.delivery-row[data-status="pending"], .delivery-row[data-status="confirmed"]');
+    let completed = 0;
+    
+    pendingRows.forEach(row => {
+        const deliveryId = row.querySelector('small:contains("Order #")').textContent.replace('Order #', '');
+        const button = row.querySelector('.btn-success');
+        
+        if (button) {
+            setTimeout(() => {
+                OrderManager.markDelivered(parseInt(deliveryId), button);
+                completed++;
+                
+                if (completed === pendingRows.length) {
+                    setTimeout(() => location.reload(), 1000);
+                }
+            }, completed * 200); // Stagger the requests
+        }
+    });
+}
+
+function contactVendor(phone, name) {
+    if (phone) {
+        const message = encodeURIComponent(`Hello ${name}, regarding your delivery order on ${new Date('<%= selectedDate %>').toLocaleDateString()}`);
+        window.open(`tel:${phone}`, '_blank');
+        // Alternative: window.open(`sms:${phone}?body=${message}`, '_blank');
+    } else {
+        VendorConnect.showAlert('<%= __("wholesaler.deliveries.noPhoneNumber") %>', 'warning');
+    }
+}
+
+function exportDeliveries() {
+    const date = '<%= selectedDate %>';
+    VendorConnect.showAlert('<%= __("wholesaler.deliveries.exportFeature") %>', 'info');
+    // Implementation for exporting deliveries as CSV/PDF
+}
+</script>
+
+<style>
+.border-start { border-left-width: 4px !important; }
+</style>

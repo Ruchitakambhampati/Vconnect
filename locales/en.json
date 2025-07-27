@@ -1,0 +1,479 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "contracts": "Contracts",
+    "orders": "Orders",
+    "deliveries": "Deliveries",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout"
+  },
+  "home": {
+    "hero": {
+      "title": "Connect Vendors with Wholesalers",
+      "subtitle": "A revolutionary marketplace that connects street vendors with wholesale suppliers through smart contract-based deliveries.",
+      "getStarted": "Get Started",
+      "login": "Login"
+    },
+    "features": {
+      "title": "How VendorConnect Works",
+      "subtitle": "Streamlined connections between vendors and wholesalers",
+      "vendors": {
+        "title": "For Street Vendors",
+        "description": "Access wholesale products with flexible ordering and payment options",
+        "feature1": "5 free trial orders to test suppliers",
+        "feature2": "Cancel orders up to 5 times without penalty",
+        "feature3": "Contract-based guaranteed supply",
+        "feature4": "Mobile-friendly ordering system",
+        "joinButton": "Join as Vendor"
+      },
+      "wholesalers": {
+        "title": "For Wholesalers",
+        "description": "Expand your reach to street vendors with guaranteed orders",
+        "feature1": "Create flexible delivery contracts",
+        "feature2": "Track and manage daily deliveries",
+        "feature3": "Build reliable vendor networks",
+        "feature4": "Automated payment processing",
+        "joinButton": "Join as Wholesaler"
+      }
+    },
+    "howItWorks": {
+      "title": "Simple Steps to Get Started",
+      "subtitle": "Three easy steps to connect and start trading",
+      "step1": {
+        "title": "Sign Up",
+        "description": "Register as a vendor or wholesaler with your business details"
+      },
+      "step2": {
+        "title": "Create or Browse Contracts",
+        "description": "Wholesalers create contracts, vendors browse and accept them"
+      },
+      "step3": {
+        "title": "Start Trading",
+        "description": "Place orders, manage deliveries, and build lasting business relationships"
+      }
+    },
+    "benefits": {
+      "title": "Why Choose VendorConnect?",
+      "benefit1": {
+        "title": "Reliable Partnerships",
+        "description": "Build trust with contract-based trading and verified users"
+      },
+      "benefit2": {
+        "title": "Flexible Terms",
+        "description": "Trial periods, cancellation options, and adaptable contract terms"
+      },
+      "benefit3": {
+        "title": "Growth Opportunities",
+        "description": "Expand your business network and increase revenue potential"
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "subtitle": "Sign in to your VendorConnect account",
+      "email": "Email Address",
+      "emailPlaceholder": "Enter your email",
+      "emailRequired": "Please enter a valid email address",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "passwordRequired": "Please enter your password",
+      "submit": "Sign In",
+      "noAccount": "Don't have an account?",
+      "registerLink": "Sign up here"
+    },
+    "register": {
+      "title": "Join VendorConnect",
+      "subtitle": "Create your account to get started",
+      "name": "Full Name",
+      "namePlaceholder": "Enter your full name",
+      "nameRequired": "Please enter your full name",
+      "email": "Email Address",
+      "emailPlaceholder": "Enter your email",
+      "emailRequired": "Please enter a valid email address",
+      "password": "Password",
+      "passwordPlaceholder": "Choose a strong password",
+      "passwordRequired": "Password must be at least 6 characters",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordPlaceholder": "Confirm your password",
+      "confirmPasswordRequired": "Please confirm your password",
+      "passwordMismatch": "Passwords do not match",
+      "phone": "Phone Number",
+      "phonePlaceholder": "Enter your phone number",
+      "phoneRequired": "Please enter your phone number",
+      "role": "Role",
+      "selectRole": "Select your role",
+      "roleVendor": "Street Vendor",
+      "roleWholesaler": "Wholesaler",
+      "roleRequired": "Please select your role",
+      "businessName": "Business Name",
+      "businessNamePlaceholder": "Enter your business name",
+      "address": "Address",
+      "addressPlaceholder": "Enter your business address",
+      "optional": "optional",
+      "submit": "Create Account",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Sign in here"
+    },
+    "invalidCredentials": "Invalid email or password",
+    "userExists": "User with this email already exists",
+    "passwordMismatch": "Passwords do not match",
+    "invalidRole": "Please select a valid role"
+  },
+  "vendor": {
+    "dashboard": {
+      "title": "Vendor Dashboard",
+      "welcome": "Welcome back",
+      "browseContracts": "Browse Contracts",
+      "stats": {
+        "totalOrders": "Total Orders",
+        "activeOrders": "Active Orders",
+        "freeAttempts": "Free Attempts Left",
+        "availableContracts": "Available Contracts"
+      },
+      "recentOrders": {
+        "title": "Recent Orders",
+        "viewAll": "View All Orders",
+        "product": "Product",
+        "wholesaler": "Wholesaler",
+        "quantity": "Quantity",
+        "amount": "Amount",
+        "status": "Status",
+        "delivery": "Delivery Date",
+        "empty": "No recent orders found",
+        "browseContracts": "Browse Available Contracts"
+      },
+      "quickActions": {
+        "title": "Quick Actions",
+        "findContracts": "Find Contracts",
+        "manageOrders": "Manage Orders",
+        "help": "Help & FAQ"
+      },
+      "notice": {
+        "title": "Important Notice",
+        "freeAttempts": "Free Attempts Remaining",
+        "remaining": "remaining",
+        "description": "After using free attempts, you'll need to accept contracts to place orders."
+      },
+      "help": {
+        "title": "Help & FAQ",
+        "faq1": {
+          "question": "What are free attempts?",
+          "answer": "Free attempts allow you to place up to 5 orders without accepting any contracts. This helps you test suppliers and find the best partnerships."
+        },
+        "faq2": {
+          "question": "How do contracts work?",
+          "answer": "Contracts guarantee supply and pricing for a specific duration. Once you accept a contract, you can place unlimited orders with that wholesaler."
+        },
+        "faq3": {
+          "question": "Can I cancel orders?",
+          "answer": "Yes, you can cancel up to 5 orders. After that, cancellations may affect your ability to place new orders."
+        }
+      }
+    },
+    "contracts": {
+      "title": "Available Contracts",
+      "subtitle": "Browse and accept contracts from wholesalers",
+      "search": "Search Contracts",
+      "searchPlaceholder": "Search products or wholesalers...",
+      "allLocations": "All Locations",
+      "allCategories": "All Categories",
+      "by": "by",
+      "perUnit": "per unit",
+      "dailyQuantity": "Daily Quantity",
+      "duration": "Duration",
+      "endDate": "End Date",
+      "totalValue": "Total Value",
+      "placeOrder": "Place Order",
+      "accept": "Accept Contract",
+      "available": {
+        "title": "Available Contracts",
+        "empty": "No contracts available",
+        "emptyDesc": "Try adjusting your search filters or check back later for new contracts."
+      },
+      "myContracts": {
+        "title": "My Accepted Contracts",
+        "empty": "No contracts accepted yet"
+      },
+      "accepted": "Accepted on",
+      "order": "Order",
+      "tips": {
+        "title": "Tips for Success",
+        "tip1": "Review contract terms carefully before accepting",
+        "tip2": "Use free attempts to test new suppliers",
+        "tip3": "Build relationships with reliable wholesalers"
+      },
+      "searchContracts": "Search Contracts",
+      "advancedSearch": "Advanced Search",
+      "searchProduct": "Product Name",
+      "searchProductPlaceholder": "e.g., Tomatoes, Rice, Milk",
+      "location": "Location",
+      "minPrice": "Min Price",
+      "maxPrice": "Max Price",
+      "product": "Product",
+      "pricePerUnit": "Price per Unit",
+      "quantity": "Quantity",
+      "quantityHelp": "Enter the quantity you want to order",
+      "totalAmount": "Total Amount",
+      "confirmOrder": "Confirm Order",
+      "quantityRequired": "Please enter a valid quantity"
+    },
+    "orders": {
+      "title": "My Orders",
+      "subtitle": "View and manage your orders",
+      "newOrder": "Place New Order",
+      "stats": {
+        "freeAttempts": "Free Attempts Left",
+        "cancellationsLeft": "Cancellations Left",
+        "completed": "Completed Orders",
+        "active": "Active Orders"
+      },
+      "myOrders": "My Orders",
+      "allStatuses": "All Statuses",
+      "print": "Print",
+      "table": {
+        "orderId": "Order ID",
+        "product": "Product",
+        "wholesaler": "Wholesaler",
+        "quantity": "Quantity",
+        "amount": "Amount",
+        "status": "Status",
+        "deliveryDate": "Delivery Date",
+        "actions": "Actions"
+      },
+      "cancelOrder": "Cancel Order",
+      "empty": {
+        "title": "No orders yet",
+        "description": "Start by browsing available contracts and placing your first order",
+        "browseContracts": "Browse Contracts"
+      },
+      "info": {
+        "freeAttempts": {
+          "title": "Free Attempts",
+          "description": "You get 5 free attempts to place orders without accepting contracts.",
+          "benefit1": "Test different suppliers",
+          "benefit2": "No commitment required",
+          "benefit3": "Find the best partnerships"
+        },
+        "cancellation": {
+          "title": "Order Cancellation",
+          "description": "You can cancel up to 5 orders. Use this feature wisely to avoid restrictions.",
+          "limit": "Cancellations remaining",
+          "remaining": "remaining"
+        }
+      }
+    }
+  },
+  "wholesaler": {
+    "dashboard": {
+      "title": "Wholesaler Dashboard",
+      "welcome": "Welcome back",
+      "createContract": "Create Contract",
+      "stats": {
+        "activeContracts": "Active Contracts",
+        "todayDeliveries": "Today's Deliveries",
+        "todayEarnings": "Today's Earnings",
+        "contractsEndingSoon": "Contracts Ending Soon"
+      },
+      "todayDeliveries": {
+        "title": "Today's Deliveries",
+        "viewAll": "View All Deliveries",
+        "vendor": "Vendor",
+        "product": "Product",
+        "quantity": "Quantity",
+        "amount": "Amount",
+        "status": "Status",
+        "action": "Action",
+        "empty": "No deliveries scheduled for today",
+        "manageContracts": "Manage Contracts"
+      },
+      "markDelivered": "Mark Delivered",
+      "quickActions": {
+        "title": "Quick Actions",
+        "createContract": "Create Contract",
+        "manageDeliveries": "Manage Deliveries",
+        "viewContracts": "View Contracts"
+      },
+      "contractsEndingSoon": {
+        "title": "Contracts Ending Soon",
+        "endDate": "End Date",
+        "daysLeft": "days left",
+        "extend": "Extend"
+      },
+      "allGood": {
+        "title": "All Good!",
+        "message": "No contracts ending soon. Keep up the great work!"
+      },
+      "createContractModal": {
+        "title": "Create New Contract",
+        "productName": "Product Name",
+        "productNameRequired": "Please enter product name",
+        "dailyQuantity": "Daily Quantity",
+        "dailyQuantityRequired": "Please enter daily quantity",
+        "pricePerUnit": "Price per Unit",
+        "pricePerUnitRequired": "Please enter price per unit",
+        "duration": "Contract Duration",
+        "durationRequired": "Please enter contract duration",
+        "days": "days",
+        "description": "Description",
+        "descriptionPlaceholder": "Describe your product, quality, delivery terms...",
+        "note": "Note: Once created, the contract will be visible to all vendors in your area.",
+        "create": "Create Contract"
+      }
+    },
+    "contracts": {
+      "title": "My Contracts",
+      "subtitle": "Manage your wholesale contracts",
+      "createNew": "Create New Contract",
+      "stats": {
+        "active": "Active Contracts",
+        "totalVendors": "Total Vendors",
+        "totalOrders": "Total Orders",
+        "endingSoon": "Ending Soon"
+      },
+      "searchPlaceholder": "Search contracts...",
+      "allStatuses": "All Statuses",
+      "sortBy": {
+        "newest": "Newest First",
+        "endDate": "End Date",
+        "product": "Product Name",
+        "price": "Price"
+      },
+      "export": "Export",
+      "refresh": "Refresh",
+      "dailyQuantity": "Daily Quantity",
+      "pricePerUnit": "Price per Unit",
+      "duration": "Duration",
+      "acceptedVendors": "Accepted Vendors",
+      "created": "Created",
+      "endDate": "End Date",
+      "totalValue": "Total Value",
+      "edit": "Edit",
+      "viewOrders": "View Orders",
+      "deactivate": "Deactivate",
+      "orders": "Orders",
+      "vendors": "Vendors",
+      "empty": {
+        "title": "No contracts yet",
+        "description": "Create your first contract to start connecting with vendors",
+        "createFirst": "Create First Contract"
+      },
+      "createModal": {
+        "title": "Create New Contract",
+        "productName": "Product Name",
+        "productNameRequired": "Please enter product name",
+        "dailyQuantity": "Daily Quantity",
+        "dailyQuantityRequired": "Please enter daily quantity",
+        "pricePerUnit": "Price per Unit",
+        "pricePerUnitRequired": "Please enter price per unit",
+        "duration": "Contract Duration",
+        "durationRequired": "Please enter contract duration",
+        "days": "days",
+        "description": "Description",
+        "descriptionPlaceholder": "Describe your product, quality, delivery terms...",
+        "note": "Note: Once created, the contract will be visible to all vendors in your area.",
+        "create": "Create Contract"
+      },
+      "editFeature": "Edit feature coming soon",
+      "vendorListFeature": "Vendor list feature coming soon",
+      "exportFeature": "Export feature coming soon"
+    },
+    "deliveries": {
+      "title": "Delivery Management",
+      "subtitle": "Track and manage your daily deliveries",
+      "export": "Export Deliveries",
+      "stats": {
+        "totalDeliveries": "Total Deliveries",
+        "pending": "Pending",
+        "completed": "Completed",
+        "totalEarnings": "Total Earnings"
+      },
+      "previousDay": "Previous Day",
+      "today": "Today",
+      "nextDay": "Next Day",
+      "deliveriesFor": "Deliveries for",
+      "allStatuses": "All Statuses",
+      "markAllDelivered": "Mark All Delivered",
+      "table": {
+        "vendor": "Vendor",
+        "product": "Product",
+        "quantity": "Quantity",
+        "amount": "Amount",
+        "status": "Status",
+        "orderTime": "Order Time",
+        "actions": "Actions"
+      },
+      "markDelivered": "Mark as Delivered",
+      "contactVendor": "Contact Vendor",
+      "empty": {
+        "title": "No deliveries scheduled",
+        "description": "No deliveries found for the selected date",
+        "goToToday": "Go to Today",
+        "manageContracts": "Manage Contracts"
+      },
+      "tips": {
+        "title": "Delivery Tips",
+        "tip1": "Mark deliveries as completed promptly",
+        "tip2": "Contact vendors if there are any issues",
+        "tip3": "Export delivery reports for record keeping"
+      },
+      "performance": {
+        "title": "Today's Performance",
+        "completionRate": "Completion Rate",
+        "todayEarnings": "Today's Earnings"
+      },
+      "confirmMarkAll": "Are you sure you want to mark all pending deliveries as completed?",
+      "noPhoneNumber": "No phone number available for this vendor",
+      "exportFeature": "Export feature coming soon"
+    }
+  },
+  "contract": {
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "expired": "Expired"
+    },
+    "accepted": "Contract accepted successfully",
+    "created": "Contract created successfully",
+    "updated": "Contract updated successfully",
+    "deactivated": "Contract deactivated successfully",
+    "notFound": "Contract not found"
+  },
+  "order": {
+    "status": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "delivered": "Delivered",
+      "cancelled": "Cancelled"
+    },
+    "placed": "Order placed successfully",
+    "cancelled": "Order cancelled successfully",
+    "marked_delivered": "Order marked as delivered",
+    "notFound": "Order not found"
+  },
+  "error": {
+    "general": "Something went wrong. Please try again.",
+    "notFound": "Page not found",
+    "accessDenied": "Access denied"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "close": "Close",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "loading": "Loading...",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "export": "Export",
+    "print": "Print",
+    "refresh": "Refresh"
+  },
+  "footer": {
+    "description": "Connecting vendors and wholesalers through smart contracts",
+    "rights": "All rights reserved."
+  }
+}

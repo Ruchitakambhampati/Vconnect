@@ -1,0 +1,255 @@
+
+
+<div class="container-fluid">
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-1"><%= __('vendor.dashboard.title') %></h1>
+            <p class="text-muted mb-0">
+                <%= __('vendor.dashboard.welcome') %>, <%= user.name %>!
+            </p>
+        </div>
+        <div>
+            <a href="/vendor/contracts" class="btn btn-primary">
+                <i data-feather="file-text" class="me-2"></i>
+                <%= __('vendor.dashboard.browseContracts') %>
+            </a>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="stats-card info">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <div class="stats-number" id="total-orders"><%= totalOrders %></div>
+                        <div class="stats-label">
+                            <i data-feather="shopping-cart" class="me-1"></i>
+                            <%= __('vendor.dashboard.stats.totalOrders') %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="stats-card success">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <div class="stats-number" id="active-orders"><%= activeOrders %></div>
+                        <div class="stats-label">
+                            <i data-feather="truck" class="me-1"></i>
+                            <%= __('vendor.dashboard.stats.activeOrders') %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="stats-card warning">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <div class="stats-number" id="free-attempts"><%= freeAttemptsRemaining %></div>
+                        <div class="stats-label">
+                            <i data-feather="gift" class="me-1"></i>
+                            <%= __('vendor.dashboard.stats.freeAttempts') %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="stats-card">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <div class="stats-number" id="contracts-available"><%= availableContracts %></div>
+                        <div class="stats-label">
+                            <i data-feather="file-text" class="me-1"></i>
+                            <%= __('vendor.dashboard.stats.availableContracts') %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                        <i data-feather="activity" class="me-2"></i>
+                        <%= __('vendor.dashboard.recentOrders.title') %>
+                    </h5>
+                    <a href="/vendor/orders" class="btn btn-sm btn-outline-primary">
+                        <%= __('vendor.dashboard.recentOrders.viewAll') %>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <% if (recentOrders && recentOrders.length > 0) { %>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th><%= __('vendor.dashboard.recentOrders.product') %></th>
+                                        <th><%= __('vendor.dashboard.recentOrders.wholesaler') %></th>
+                                        <th><%= __('vendor.dashboard.recentOrders.quantity') %></th>
+                                        <th><%= __('vendor.dashboard.recentOrders.amount') %></th>
+                                        <th><%= __('vendor.dashboard.recentOrders.status') %></th>
+                                        <th><%= __('vendor.dashboard.recentOrders.delivery') %></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% recentOrders.forEach(order => { %>
+                                        <tr>
+                                            <td>
+                                                <strong><%= order.product_name %></strong>
+                                            </td>
+                                            <td>
+                                                <%= order.wholesaler_name %>
+                                                <% if (order.business_name) { %>
+                                                    <br><small class="text-muted"><%= order.business_name %></small>
+                                                <% } %>
+                                            </td>
+                                            <td><%= order.quantity %> units</td>
+                                            <td>₹<%= order.total_amount.toLocaleString() %></td>
+                                            <td>
+                                                <span class="status-badge status-<%= order.status %>">
+                                                    <%= __('order.status.' + order.status) %>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <small class="text-muted">
+                                                    <%= new Date(order.delivery_date).toLocaleDateString() %>
+                                                </small>
+                                            </td>
+                                        </tr>
+                                    <% }); %>
+                                </tbody>
+                            </table>
+                        </div>
+                    <% } else { %>
+                        <div class="text-center py-4">
+                            <i data-feather="inbox" style="width: 48px; height: 48px;" class="text-muted mb-3"></i>
+                            <p class="text-muted mb-3"><%= __('vendor.dashboard.recentOrders.empty') %></p>
+                            <a href="/vendor/contracts" class="btn btn-primary">
+                                <%= __('vendor.dashboard.recentOrders.browseContracts') %>
+                            </a>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <!-- Quick Actions -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i data-feather="zap" class="me-2"></i>
+                        <%= __('vendor.dashboard.quickActions.title') %>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a href="/vendor/contracts" class="btn btn-outline-primary">
+                            <i data-feather="search" class="me-2"></i>
+                            <%= __('vendor.dashboard.quickActions.findContracts') %>
+                        </a>
+                        <a href="/vendor/orders" class="btn btn-outline-success">
+                            <i data-feather="shopping-cart" class="me-2"></i>
+                            <%= __('vendor.dashboard.quickActions.manageOrders') %>
+                        </a>
+                        <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#helpModal">
+                            <i data-feather="help-circle" class="me-2"></i>
+                            <%= __('vendor.dashboard.quickActions.help') %>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Important Notice -->
+            <div class="card">
+                <div class="card-header bg-warning bg-opacity-10">
+                    <h6 class="mb-0 text-warning">
+                        <i data-feather="info" class="me-2"></i>
+                        <%= __('vendor.dashboard.notice.title') %>
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <p class="mb-2">
+                        <strong><%= __('vendor.dashboard.notice.freeAttempts') %>:</strong>
+                        <%= freeAttemptsRemaining %> <%= __('vendor.dashboard.notice.remaining') %>
+                    </p>
+                    <p class="mb-0 small text-muted">
+                        <%= __('vendor.dashboard.notice.description') %>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Help Modal -->
+<div class="modal fade" id="helpModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i data-feather="help-circle" class="me-2"></i>
+                    <%= __('vendor.dashboard.help.title') %>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="accordion" id="helpAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="help1">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+                                <%= __('vendor.dashboard.help.faq1.question') %>
+                            </button>
+                        </h2>
+                        <div id="collapse1" class="accordion-collapse collapse show" data-bs-parent="#helpAccordion">
+                            <div class="accordion-body">
+                                <%= __('vendor.dashboard.help.faq1.answer') %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="help2">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+                                <%= __('vendor.dashboard.help.faq2.question') %>
+                            </button>
+                        </h2>
+                        <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#helpAccordion">
+                            <div class="accordion-body">
+                                <%= __('vendor.dashboard.help.faq2.answer') %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="help3">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
+                                <%= __('vendor.dashboard.help.faq3.question') %>
+                            </button>
+                        </h2>
+                        <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#helpAccordion">
+                            <div class="accordion-body">
+                                <%= __('vendor.dashboard.help.faq3.answer') %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <%= __('common.close') %>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

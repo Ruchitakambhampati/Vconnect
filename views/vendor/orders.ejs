@@ -1,0 +1,308 @@
+
+
+<div class="container-fluid">
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-1"><%= __('vendor.orders.title') %></h1>
+            <p class="text-muted mb-0">
+                <%= __('vendor.orders.subtitle') %>
+            </p>
+        </div>
+        <div>
+            <a href="/vendor/contracts" class="btn btn-primary">
+                <i data-feather="plus" class="me-2"></i>
+                <%= __('vendor.orders.newOrder') %>
+            </a>
+        </div>
+    </div>
+
+    <!-- Order Statistics -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="card border-left-primary">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-grow-1">
+                            <div class="text-primary fw-bold h4" id="free-attempts-display">
+                                <%= freeAttemptsRemaining %>
+                            </div>
+                            <div class="text-muted small">
+                                <i data-feather="gift" class="me-1"></i>
+                                <%= __('vendor.orders.stats.freeAttempts') %>
+                            </div>
+                        </div>
+                        <div class="text-primary">
+                            <i data-feather="gift" style="width: 32px; height: 32px;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card border-left-warning">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-grow-1">
+                            <div class="text-warning fw-bold h4" id="cancellations-display">
+                                <%= cancellationsRemaining %>
+                            </div>
+                            <div class="text-muted small">
+                                <i data-feather="x-circle" class="me-1"></i>
+                                <%= __('vendor.orders.stats.cancellationsLeft') %>
+                            </div>
+                        </div>
+                        <div class="text-warning">
+                            <i data-feather="x-circle" style="width: 32px; height: 32px;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card border-left-success">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-grow-1">
+                            <div class="text-success fw-bold h4">
+                                <%= orders.filter(o => o.status === 'delivered').length %>
+                            </div>
+                            <div class="text-muted small">
+                                <i data-feather="check-circle" class="me-1"></i>
+                                <%= __('vendor.orders.stats.completed') %>
+                            </div>
+                        </div>
+                        <div class="text-success">
+                            <i data-feather="check-circle" style="width: 32px; height: 32px;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card border-left-info">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-grow-1">
+                            <div class="text-info fw-bold h4">
+                                <%= orders.filter(o => ['pending', 'confirmed'].includes(o.status)).length %>
+                            </div>
+                            <div class="text-muted small">
+                                <i data-feather="clock" class="me-1"></i>
+                                <%= __('vendor.orders.stats.active') %>
+                            </div>
+                        </div>
+                        <div class="text-info">
+                            <i data-feather="clock" style="width: 32px; height: 32px;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Orders Table -->
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">
+                <i data-feather="list" class="me-2"></i>
+                <%= __('vendor.orders.myOrders') %>
+            </h5>
+            <div class="d-flex gap-2">
+                <select class="form-select form-select-sm" id="statusFilter" style="width: auto;">
+                    <option value=""><%= __('vendor.orders.allStatuses') %></option>
+                    <option value="pending"><%= __('order.status.pending') %></option>
+                    <option value="confirmed"><%= __('order.status.confirmed') %></option>
+                    <option value="delivered"><%= __('order.status.delivered') %></option>
+                    <option value="cancelled"><%= __('order.status.cancelled') %></option>
+                </select>
+                <button class="btn btn-sm btn-outline-secondary" onclick="window.print()">
+                    <i data-feather="printer" class="me-1"></i>
+                    <%= __('vendor.orders.print') %>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <% if (orders && orders.length > 0) { %>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th><%= __('vendor.orders.table.orderId') %></th>
+                                <th><%= __('vendor.orders.table.product') %></th>
+                                <th><%= __('vendor.orders.table.wholesaler') %></th>
+                                <th><%= __('vendor.orders.table.quantity') %></th>
+                                <th><%= __('vendor.orders.table.amount') %></th>
+                                <th><%= __('vendor.orders.table.status') %></th>
+                                <th><%= __('vendor.orders.table.deliveryDate') %></th>
+                                <th><%= __('vendor.orders.table.actions') %></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% orders.forEach(order => { %>
+                                <tr class="order-row" data-status="<%= order.status %>">
+                                    <td>
+                                        <strong>#<%= order.id %></strong>
+                                        <br>
+                                        <small class="text-muted">
+                                            <%= new Date(order.created_at).toLocaleDateString() %>
+                                        </small>
+                                    </td>
+                                    <td>
+                                        <strong><%= order.product_name %></strong>
+                                        <br>
+                                        <small class="text-muted">₹<%= order.price_per_unit %> per unit</small>
+                                    </td>
+                                    <td>
+                                        <%= order.wholesaler_name %>
+                                        <% if (order.business_name) { %>
+                                            <br><small class="text-muted"><%= order.business_name %></small>
+                                        <% } %>
+                                    </td>
+                                    <td>
+                                        <span class="fw-bold"><%= order.quantity %></span> units
+                                    </td>
+                                    <td>
+                                        <span class="fw-bold text-success">₹<%= order.total_amount.toLocaleString() %></span>
+                                    </td>
+                                    <td>
+                                        <span class="status-badge status-<%= order.status %>">
+                                            <%= __('order.status.' + order.status) %>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <%= new Date(order.delivery_date).toLocaleDateString() %>
+                                        <br>
+                                        <small class="text-muted">
+                                            <% 
+                                                const deliveryDate = new Date(order.delivery_date);
+                                                const today = new Date();
+                                                const diffTime = deliveryDate - today;
+                                                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                                            %>
+                                            <% if (diffDays > 0) { %>
+                                                <%= diffDays %> days to go
+                                            <% } else if (diffDays === 0) { %>
+                                                Today
+                                            <% } else { %>
+                                                <%= Math.abs(diffDays) %> days ago
+                                            <% } %>
+                                        </small>
+                                    </td>
+                                    <td>
+                                        <% if (order.status === 'pending' || order.status === 'confirmed') { %>
+                                            <button type="button" class="btn btn-sm btn-outline-danger" 
+                                                    onclick="OrderManager.cancelOrder(<%= order.id %>, this)"
+                                                    title="<%= __('vendor.orders.cancelOrder') %>">
+                                                <i data-feather="x" style="width: 14px; height: 14px;"></i>
+                                            </button>
+                                        <% } else { %>
+                                            <span class="text-muted">-</span>
+                                        <% } %>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            <% } else { %>
+                <div class="text-center py-5">
+                    <i data-feather="shopping-cart" style="width: 64px; height: 64px;" class="text-muted mb-3"></i>
+                    <h5 class="text-muted"><%= __('vendor.orders.empty.title') %></h5>
+                    <p class="text-muted mb-4"><%= __('vendor.orders.empty.description') %></p>
+                    <a href="/vendor/contracts" class="btn btn-primary">
+                        <i data-feather="search" class="me-2"></i>
+                        <%= __('vendor.orders.empty.browseContracts') %>
+                    </a>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- Important Information -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-info bg-opacity-10">
+                    <h6 class="mb-0 text-info">
+                        <i data-feather="info" class="me-2"></i>
+                        <%= __('vendor.orders.info.freeAttempts.title') %>
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <p class="mb-2">
+                        <%= __('vendor.orders.info.freeAttempts.description') %>
+                    </p>
+                    <ul class="list-unstyled mb-0 small">
+                        <li class="mb-1">
+                            <i data-feather="check" class="text-success me-2" style="width: 14px; height: 14px;"></i>
+                            <%= __('vendor.orders.info.freeAttempts.benefit1') %>
+                        </li>
+                        <li class="mb-1">
+                            <i data-feather="check" class="text-success me-2" style="width: 14px; height: 14px;"></i>
+                            <%= __('vendor.orders.info.freeAttempts.benefit2') %>
+                        </li>
+                        <li class="mb-0">
+                            <i data-feather="check" class="text-success me-2" style="width: 14px; height: 14px;"></i>
+                            <%= __('vendor.orders.info.freeAttempts.benefit3') %>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-warning bg-opacity-10">
+                    <h6 class="mb-0 text-warning">
+                        <i data-feather="alert-triangle" class="me-2"></i>
+                        <%= __('vendor.orders.info.cancellation.title') %>
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <p class="mb-2">
+                        <%= __('vendor.orders.info.cancellation.description') %>
+                    </p>
+                    <div class="alert alert-warning py-2">
+                        <small>
+                            <strong><%= __('vendor.orders.info.cancellation.limit') %>:</strong>
+                            <%= cancellationsRemaining %> <%= __('vendor.orders.info.cancellation.remaining') %>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.border-left-primary { border-left: 4px solid var(--primary-color) !important; }
+.border-left-warning { border-left: 4px solid var(--warning-color) !important; }
+.border-left-success { border-left: 4px solid var(--success-color) !important; }
+.border-left-info { border-left: 4px solid var(--primary-color) !important; }
+
+@media print {
+    .btn, .card-header .d-flex > div:last-child {
+        display: none !important;
+    }
+}
+</style>
+
+<script>
+// Status filter functionality
+document.getElementById('statusFilter').addEventListener('change', function() {
+    const selectedStatus = this.value;
+    const rows = document.querySelectorAll('.order-row');
+    
+    rows.forEach(row => {
+        if (selectedStatus === '' || row.dataset.status === selectedStatus) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+});
+</script>

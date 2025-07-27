@@ -1,0 +1,356 @@
+
+
+<div class="container-fluid">
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-1"><%= __('vendor.contracts.title') %></h1>
+            <p class="text-muted mb-0">
+                <%= __('vendor.contracts.subtitle') %>
+            </p>
+        </div>
+        <div>
+            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#searchModal">
+                <i data-feather="search" class="me-2"></i>
+                <%= __('vendor.contracts.search') %>
+            </button>
+        </div>
+    </div>
+
+    <!-- Search Results & Filters -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="contract-search" placeholder="<%= __('vendor.contracts.searchPlaceholder') %>">
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" id="location-filter">
+                                <option value=""><%= __('vendor.contracts.allLocations') %></option>
+                                <option value="mumbai">Mumbai</option>
+                                <option value="delhi">Delhi</option>
+                                <option value="bangalore">Bangalore</option>
+                                <option value="pune">Pune</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" id="category-filter">
+                                <option value=""><%= __('vendor.contracts.allCategories') %></option>
+                                <option value="vegetables">Vegetables</option>
+                                <option value="fruits">Fruits</option>
+                                <option value="grains">Grains</option>
+                                <option value="dairy">Dairy</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Available Contracts -->
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i data-feather="file-text" class="me-2"></i>
+                        <%= __('vendor.contracts.available.title') %>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <% if (contracts && contracts.length > 0) { %>
+                        <div class="row g-4">
+                            <% contracts.forEach(contract => { %>
+                                <div class="col-12">
+                                    <div class="contract-card card">
+                                        <div class="card-body">
+                                            <div class="contract-header">
+                                                <div>
+                                                    <h5 class="contract-title"><%= contract.product_name %></h5>
+                                                    <p class="text-muted mb-0">
+                                                        <%= __('vendor.contracts.by') %> <%= contract.wholesaler_name %>
+                                                        <% if (contract.business_name) { %>
+                                                            · <%= contract.business_name %>
+                                                        <% } %>
+                                                    </p>
+                                                </div>
+                                                <div class="text-end">
+                                                    <div class="contract-price">₹<%= contract.price_per_unit %></div>
+                                                    <small class="text-muted"><%= __('vendor.contracts.perUnit') %></small>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="contract-details">
+                                                <div class="contract-detail">
+                                                    <div class="contract-detail-label"><%= __('vendor.contracts.dailyQuantity') %></div>
+                                                    <div class="contract-detail-value"><%= contract.daily_quantity %> units</div>
+                                                </div>
+                                                <div class="contract-detail">
+                                                    <div class="contract-detail-label"><%= __('vendor.contracts.duration') %></div>
+                                                    <div class="contract-detail-value"><%= contract.duration_days %> days</div>
+                                                </div>
+                                                <div class="contract-detail">
+                                                    <div class="contract-detail-label"><%= __('vendor.contracts.endDate') %></div>
+                                                    <div class="contract-detail-value">
+                                                        <%= new Date(contract.end_date).toLocaleDateString() %>
+                                                    </div>
+                                                </div>
+                                                <div class="contract-detail">
+                                                    <div class="contract-detail-label"><%= __('vendor.contracts.totalValue') %></div>
+                                                    <div class="contract-detail-value">
+                                                        ₹<%= (contract.daily_quantity * contract.price_per_unit * contract.duration_days).toLocaleString() %>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <% if (contract.description) { %>
+                                                <p class="mb-3"><%= contract.description %></p>
+                                            <% } %>
+                                            
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="status-badge status-active">
+                                                    <%= __('contract.status.active') %>
+                                                </span>
+                                                <div>
+                                                    <button type="button" class="btn btn-outline-info btn-sm me-2" data-bs-toggle="modal" data-bs-target="#orderModal" onclick="prepareOrder(<%= contract.id %>, '<%= contract.product_name %>', <%= contract.price_per_unit %>)">
+                                                        <i data-feather="shopping-cart" class="me-1"></i>
+                                                        <%= __('vendor.contracts.placeOrder') %>
+                                                    </button>
+                                                    <button type="button" class="btn btn-primary btn-sm" onclick="ContractManager.acceptContract(<%= contract.id %>, this)">
+                                                        <i data-feather="check" class="me-1"></i>
+                                                        <%= __('vendor.contracts.accept') %>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% }); %>
+                        </div>
+                    <% } else { %>
+                        <div class="text-center py-5">
+                            <i data-feather="inbox" style="width: 64px; height: 64px;" class="text-muted mb-3"></i>
+                            <h5 class="text-muted"><%= __('vendor.contracts.available.empty') %></h5>
+                            <p class="text-muted mb-3"><%= __('vendor.contracts.available.emptyDesc') %></p>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#searchModal">
+                                <i data-feather="search" class="me-2"></i>
+                                <%= __('vendor.contracts.searchContracts') %>
+                            </button>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Accepted Contracts -->
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0">
+                        <i data-feather="check-circle" class="me-2"></i>
+                        <%= __('vendor.contracts.myContracts.title') %>
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <% if (myContracts && myContracts.length > 0) { %>
+                        <% myContracts.forEach(contract => { %>
+                            <div class="border rounded p-3 mb-3">
+                                <h6 class="mb-2"><%= contract.product_name %></h6>
+                                <p class="text-muted small mb-1">
+                                    <%= contract.wholesaler_name %>
+                                    <% if (contract.business_name) { %>
+                                        · <%= contract.business_name %>
+                                    <% } %>
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="fw-bold text-success">₹<%= contract.price_per_unit %>/unit</span>
+                                    <small class="text-muted">
+                                        <%= __('vendor.contracts.accepted') %> <%= new Date(contract.accepted_at).toLocaleDateString() %>
+                                    </small>
+                                </div>
+                                <div class="mt-2">
+                                    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#orderModal" onclick="prepareOrder(<%= contract.id %>, '<%= contract.product_name %>', <%= contract.price_per_unit %>)">
+                                        <i data-feather="plus" class="me-1"></i>
+                                        <%= __('vendor.contracts.order') %>
+                                    </button>
+                                </div>
+                            </div>
+                        <% }); %>
+                    <% } else { %>
+                        <div class="text-center py-3">
+                            <i data-feather="file-text" style="width: 32px; height: 32px;" class="text-muted mb-2"></i>
+                            <p class="text-muted small mb-0">
+                                <%= __('vendor.contracts.myContracts.empty') %>
+                            </p>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+
+            <!-- Tips Card -->
+            <div class="card mt-4">
+                <div class="card-header bg-info bg-opacity-10">
+                    <h6 class="mb-0 text-info">
+                        <i data-feather="lightbulb" class="me-2"></i>
+                        <%= __('vendor.contracts.tips.title') %>
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0 small">
+                        <li class="mb-2">
+                            <i data-feather="check" class="text-success me-2" style="width: 14px; height: 14px;"></i>
+                            <%= __('vendor.contracts.tips.tip1') %>
+                        </li>
+                        <li class="mb-2">
+                            <i data-feather="check" class="text-success me-2" style="width: 14px; height: 14px;"></i>
+                            <%= __('vendor.contracts.tips.tip2') %>
+                        </li>
+                        <li class="mb-0">
+                            <i data-feather="check" class="text-success me-2" style="width: 14px; height: 14px;"></i>
+                            <%= __('vendor.contracts.tips.tip3') %>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Order Modal -->
+<div class="modal fade" id="orderModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i data-feather="shopping-cart" class="me-2"></i>
+                    <%= __('vendor.contracts.placeOrder') %>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="orderForm">
+                    <input type="hidden" id="orderContractId">
+                    <div class="mb-3">
+                        <label class="form-label"><%= __('vendor.contracts.product') %></label>
+                        <input type="text" class="form-control" id="orderProductName" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><%= __('vendor.contracts.pricePerUnit') %></label>
+                        <input type="text" class="form-control" id="orderPricePerUnit" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="orderQuantity" class="form-label"><%= __('vendor.contracts.quantity') %></label>
+                        <input type="number" class="form-control" id="orderQuantity" min="1" required>
+                        <div class="form-text"><%= __('vendor.contracts.quantityHelp') %></div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><%= __('vendor.contracts.totalAmount') %></label>
+                        <input type="text" class="form-control" id="orderTotalAmount" readonly>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <%= __('common.cancel') %>
+                </button>
+                <button type="button" class="btn btn-primary" onclick="submitOrder()">
+                    <i data-feather="check" class="me-2"></i>
+                    <%= __('vendor.contracts.confirmOrder') %>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Search Modal -->
+<div class="modal fade" id="searchModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i data-feather="search" class="me-2"></i>
+                    <%= __('vendor.contracts.advancedSearch') %>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label"><%= __('vendor.contracts.searchProduct') %></label>
+                        <input type="text" class="form-control" placeholder="<%= __('vendor.contracts.searchProductPlaceholder') %>">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><%= __('vendor.contracts.location') %></label>
+                        <select class="form-select">
+                            <option value=""><%= __('vendor.contracts.allLocations') %></option>
+                            <option value="mumbai">Mumbai</option>
+                            <option value="delhi">Delhi</option>
+                            <option value="bangalore">Bangalore</option>
+                            <option value="pune">Pune</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label"><%= __('vendor.contracts.minPrice') %></label>
+                                <input type="number" class="form-control" min="0" step="0.01">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label"><%= __('vendor.contracts.maxPrice') %></label>
+                                <input type="number" class="form-control" min="0" step="0.01">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <%= __('common.cancel') %>
+                </button>
+                <button type="button" class="btn btn-primary">
+                    <i data-feather="search" class="me-2"></i>
+                    <%= __('vendor.contracts.search') %>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function prepareOrder(contractId, productName, pricePerUnit) {
+    document.getElementById('orderContractId').value = contractId;
+    document.getElementById('orderProductName').value = productName;
+    document.getElementById('orderPricePerUnit').value = '₹' + pricePerUnit;
+    
+    // Calculate total when quantity changes
+    const quantityInput = document.getElementById('orderQuantity');
+    const totalInput = document.getElementById('orderTotalAmount');
+    
+    quantityInput.oninput = function() {
+        const total = this.value * pricePerUnit;
+        totalInput.value = '₹' + total.toLocaleString();
+    };
+    
+    // Reset form
+    quantityInput.value = '';
+    totalInput.value = '';
+}
+
+function submitOrder() {
+    const contractId = document.getElementById('orderContractId').value;
+    const quantity = document.getElementById('orderQuantity').value;
+    const button = event.target;
+    
+    if (!quantity || quantity < 1) {
+        VendorConnect.showAlert('<%= __("vendor.contracts.quantityRequired") %>', 'warning');
+        return;
+    }
+    
+    OrderManager.placeOrder(contractId, parseInt(quantity), button);
+}
+</script>

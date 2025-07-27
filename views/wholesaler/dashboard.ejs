@@ -1,0 +1,347 @@
+
+
+<div class="container-fluid">
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-1"><%= __('wholesaler.dashboard.title') %></h1>
+            <p class="text-muted mb-0">
+                <%= __('wholesaler.dashboard.welcome') %>, <%= user.name %>!
+            </p>
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contractModal">
+                <i data-feather="plus" class="me-2"></i>
+                <%= __('wholesaler.dashboard.createContract') %>
+            </button>
+        </div>
+    </div>
+
+    <!-- Dashboard Stats -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="stats-card info">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <div class="stats-number" id="active-contracts"><%= activeContracts %></div>
+                        <div class="stats-label">
+                            <i data-feather="file-text" class="me-1"></i>
+                            <%= __('wholesaler.dashboard.stats.activeContracts') %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="stats-card success">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <div class="stats-number" id="today-deliveries"><%= todayDeliveries %></div>
+                        <div class="stats-label">
+                            <i data-feather="truck" class="me-1"></i>
+                            <%= __('wholesaler.dashboard.stats.todayDeliveries') %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="stats-card warning">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <div class="stats-number" id="today-earnings">₹<%= earnings.toLocaleString() %></div>
+                        <div class="stats-label">
+                            <i data-feather="dollar-sign" class="me-1"></i>
+                            <%= __('wholesaler.dashboard.stats.todayEarnings') %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="stats-card">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <div class="stats-number"><%= contractsEndingSoon.length %></div>
+                        <div class="stats-label">
+                            <i data-feather="alert-circle" class="me-1"></i>
+                            <%= __('wholesaler.dashboard.stats.contractsEndingSoon') %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Today's Deliveries -->
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                        <i data-feather="truck" class="me-2"></i>
+                        <%= __('wholesaler.dashboard.todayDeliveries.title') %>
+                    </h5>
+                    <a href="/wholesaler/deliveries" class="btn btn-sm btn-outline-primary">
+                        <%= __('wholesaler.dashboard.todayDeliveries.viewAll') %>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <% if (recentOrders && recentOrders.length > 0) { %>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th><%= __('wholesaler.dashboard.todayDeliveries.vendor') %></th>
+                                        <th><%= __('wholesaler.dashboard.todayDeliveries.product') %></th>
+                                        <th><%= __('wholesaler.dashboard.todayDeliveries.quantity') %></th>
+                                        <th><%= __('wholesaler.dashboard.todayDeliveries.amount') %></th>
+                                        <th><%= __('wholesaler.dashboard.todayDeliveries.status') %></th>
+                                        <th><%= __('wholesaler.dashboard.todayDeliveries.action') %></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% recentOrders.forEach(order => { %>
+                                        <tr>
+                                            <td>
+                                                <strong><%= order.vendor_name %></strong>
+                                                <% if (order.vendor_phone) { %>
+                                                    <br><small class="text-muted">
+                                                        <i data-feather="phone" style="width: 12px; height: 12px;"></i>
+                                                        <%= order.vendor_phone %>
+                                                    </small>
+                                                <% } %>
+                                            </td>
+                                            <td><%= order.product_name %></td>
+                                            <td><%= order.quantity %> units</td>
+                                            <td>₹<%= order.total_amount.toLocaleString() %></td>
+                                            <td>
+                                                <span class="status-badge status-<%= order.status %>">
+                                                    <%= __('order.status.' + order.status) %>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <% if (order.status === 'pending' || order.status === 'confirmed') { %>
+                                                    <button type="button" class="btn btn-sm btn-success" 
+                                                            onclick="OrderManager.markDelivered(<%= order.id %>, this)">
+                                                        <i data-feather="check" style="width: 14px; height: 14px;"></i>
+                                                        <%= __('wholesaler.dashboard.markDelivered') %>
+                                                    </button>
+                                                <% } else { %>
+                                                    <span class="text-muted">-</span>
+                                                <% } %>
+                                            </td>
+                                        </tr>
+                                    <% }); %>
+                                </tbody>
+                            </table>
+                        </div>
+                    <% } else { %>
+                        <div class="text-center py-4">
+                            <i data-feather="truck" style="width: 48px; height: 48px;" class="text-muted mb-3"></i>
+                            <p class="text-muted mb-3"><%= __('wholesaler.dashboard.todayDeliveries.empty') %></p>
+                            <a href="/wholesaler/contracts" class="btn btn-primary">
+                                <%= __('wholesaler.dashboard.todayDeliveries.manageContracts') %>
+                            </a>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <!-- Quick Actions -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h6 class="mb-0">
+                        <i data-feather="zap" class="me-2"></i>
+                        <%= __('wholesaler.dashboard.quickActions.title') %>
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#contractModal">
+                            <i data-feather="plus" class="me-2"></i>
+                            <%= __('wholesaler.dashboard.quickActions.createContract') %>
+                        </button>
+                        <a href="/wholesaler/deliveries" class="btn btn-outline-success">
+                            <i data-feather="truck" class="me-2"></i>
+                            <%= __('wholesaler.dashboard.quickActions.manageDeliveries') %>
+                        </a>
+                        <a href="/wholesaler/contracts" class="btn btn-outline-info">
+                            <i data-feather="file-text" class="me-2"></i>
+                            <%= __('wholesaler.dashboard.quickActions.viewContracts') %>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contracts Ending Soon -->
+            <% if (contractsEndingSoon && contractsEndingSoon.length > 0) { %>
+                <div class="card">
+                    <div class="card-header bg-warning bg-opacity-10">
+                        <h6 class="mb-0 text-warning">
+                            <i data-feather="alert-triangle" class="me-2"></i>
+                            <%= __('wholesaler.dashboard.contractsEndingSoon.title') %>
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <% contractsEndingSoon.forEach(contract => { %>
+                            <div class="border-start border-warning border-3 ps-3 mb-3">
+                                <h6 class="mb-1"><%= contract.product_name %></h6>
+                                <p class="text-muted small mb-1">
+                                    <%= __('wholesaler.dashboard.contractsEndingSoon.endDate') %>: 
+                                    <%= new Date(contract.end_date).toLocaleDateString() %>
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="small text-warning">
+                                        <% 
+                                            const endDate = new Date(contract.end_date);
+                                            const today = new Date();
+                                            const diffTime = endDate - today;
+                                            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                                        %>
+                                        <%= diffDays %> <%= __('wholesaler.dashboard.contractsEndingSoon.daysLeft') %>
+                                    </span>
+                                    <button type="button" class="btn btn-sm btn-outline-warning" 
+                                            onclick="extendContract(<%= contract.id %>)">
+                                        <%= __('wholesaler.dashboard.contractsEndingSoon.extend') %>
+                                    </button>
+                                </div>
+                            </div>
+                        <% }); %>
+                    </div>
+                </div>
+            <% } else { %>
+                <div class="card">
+                    <div class="card-header bg-success bg-opacity-10">
+                        <h6 class="mb-0 text-success">
+                            <i data-feather="check-circle" class="me-2"></i>
+                            <%= __('wholesaler.dashboard.allGood.title') %>
+                        </h6>
+                    </div>
+                    <div class="card-body text-center">
+                        <p class="text-muted mb-0">
+                            <%= __('wholesaler.dashboard.allGood.message') %>
+                        </p>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<!-- Create Contract Modal -->
+<div class="modal fade" id="contractModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i data-feather="plus-circle" class="me-2"></i>
+                    <%= __('wholesaler.dashboard.createContractModal.title') %>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="contractForm" class="needs-validation" novalidate>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="productName" class="form-label">
+                                <%= __('wholesaler.dashboard.createContractModal.productName') %>
+                            </label>
+                            <input type="text" class="form-control" id="productName" name="productName" required>
+                            <div class="invalid-feedback">
+                                <%= __('wholesaler.dashboard.createContractModal.productNameRequired') %>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="dailyQuantity" class="form-label">
+                                <%= __('wholesaler.dashboard.createContractModal.dailyQuantity') %>
+                            </label>
+                            <input type="number" class="form-control" id="dailyQuantity" name="dailyQuantity" min="1" required>
+                            <div class="invalid-feedback">
+                                <%= __('wholesaler.dashboard.createContractModal.dailyQuantityRequired') %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="pricePerUnit" class="form-label">
+                                <%= __('wholesaler.dashboard.createContractModal.pricePerUnit') %>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text">₹</span>
+                                <input type="number" class="form-control" id="pricePerUnit" name="pricePerUnit" step="0.01" min="0.01" required>
+                            </div>
+                            <div class="invalid-feedback">
+                                <%= __('wholesaler.dashboard.createContractModal.pricePerUnitRequired') %>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="duration" class="form-label">
+                                <%= __('wholesaler.dashboard.createContractModal.duration') %>
+                            </label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="duration" name="duration" min="1" max="365" required>
+                                <span class="input-group-text"><%= __('wholesaler.dashboard.createContractModal.days') %></span>
+                            </div>
+                            <div class="invalid-feedback">
+                                <%= __('wholesaler.dashboard.createContractModal.durationRequired') %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">
+                            <%= __('wholesaler.dashboard.createContractModal.description') %>
+                        </label>
+                        <textarea class="form-control" id="description" name="description" rows="3" 
+                                  placeholder="<%= __('wholesaler.dashboard.createContractModal.descriptionPlaceholder') %>"></textarea>
+                    </div>
+                    <div class="alert alert-info">
+                        <i data-feather="info" class="me-2"></i>
+                        <%= __('wholesaler.dashboard.createContractModal.note') %>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <%= __('common.cancel') %>
+                </button>
+                <button type="button" class="btn btn-primary" onclick="submitContract()">
+                    <i data-feather="check" class="me-2"></i>
+                    <%= __('wholesaler.dashboard.createContractModal.create') %>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function submitContract() {
+    const form = document.getElementById('contractForm');
+    const button = event.target;
+    
+    if (!form.checkValidity()) {
+        form.classList.add('was-validated');
+        return;
+    }
+    
+    const formData = {
+        productName: document.getElementById('productName').value,
+        dailyQuantity: document.getElementById('dailyQuantity').value,
+        pricePerUnit: document.getElementById('pricePerUnit').value,
+        duration: document.getElementById('duration').value,
+        description: document.getElementById('description').value
+    };
+    
+    ContractManager.createContract(formData, button);
+}
+
+function extendContract(contractId) {
+    // Implementation for extending contract
+    VendorConnect.showAlert('<%= __("wholesaler.dashboard.contractsEndingSoon.extendFeature") %>', 'info');
+}
+</script>
