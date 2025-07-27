@@ -64,7 +64,7 @@ app.use('/wholesaler', wholesalerRoutes);
 app.use('/api', apiRoutes);
 
 // Home route
-app.get('/', (req, res) => {
+app.get('/', '0.0.0.0',(req, res) => {
   if (req.session.user) {
     if (req.session.user.role === 'vendor') {
       return res.redirect('/vendor/dashboard');
@@ -106,8 +106,10 @@ app.use((req, res) => {
 });
 
 // Start server
-app.listen(PORT, '0.0.0.0', () => {
+const server=app.listen(PORT, '0.0.0.0', () => {
   console.log(`VendorConnect server running on port ${PORT}`);
 });
 
+server.keepAliveTimeout = 120000;
+server.headersTimeout = 120000;
 module.exports = app;
