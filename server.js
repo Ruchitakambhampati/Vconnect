@@ -18,7 +18,7 @@ const wholesalerRoutes = require('./routes/wholesaler');
 const apiRoutes = require('./routes/api');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
 
 // Configure i18n
 app.use(i18n.init);
