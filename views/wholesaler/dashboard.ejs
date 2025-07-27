@@ -208,12 +208,12 @@
                                             const diffTime = endDate - today;
                                             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
                                         %>
-                                        <%= diffDays %> <%= __('contractsEndingSoon daysLeft') %>
+                                        <%= diffDays %> <%= __(' daysLeft') %>
                                     </span>
-                                    <button type="button" class="btn btn-sm btn-outline-warning" 
+                                    <!-- <button type="button" class="btn btn-sm btn-outline-warning" 
                                             onclick="extendContract(<%= contract.id %>)">
                                         <%= __('contractsEndingSoon extend') %>
-                                    </button>
+                                    </button> -->
                                 </div>
                             </div>
                         <% }); %>
@@ -346,6 +346,6 @@ function submitContract() {
 
 function extendContract(contractId) {
     // Implementation for extending contract
-    VendorConnect.showAlert('<%= __("contractsEndingSoon.extendFeature") %>', 'info');
+    VendorConnect.showAlert('<%= __("contractsEndingSoon extendFeature") %>', 'info');
 }
 </script>
