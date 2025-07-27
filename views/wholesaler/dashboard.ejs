@@ -1,26 +1,20 @@
 
-
-
-
-
-
 <div class="container-fluid">
     <!-- Page Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h1 class="h3 mb-1"><%= __('title') %></h1>
+            <h1 class="h3 mb-1">Wholesaler Dashboard</h1>
             <p class="text-muted mb-0">
-                <%= __('welcome') %>, <%= user.name %>!
+                Welcome, <%= user.name %>!
             </p>
         </div>
         <div>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contractModal">
                 <i data-feather="plus" class="me-2"></i>
-                <%= __('createContract') %>
+                Create New Contract
             </button>
         </div>
     </div>
-
     <!-- Dashboard Stats -->
     <div class="row g-4 mb-4">
         <div class="col-md-3">
@@ -30,7 +24,7 @@
                         <div class="stats-number" id="active-contracts"><%= activeContracts %></div>
                         <div class="stats-label">
                             <i data-feather="file-text" class="me-1"></i>
-                            <%= __('activeContracts') %>
+                            Active Contracts
                         </div>
                     </div>
                 </div>
@@ -44,7 +38,7 @@
                         <div class="stats-number" id="today-deliveries"><%= todayDeliveries %></div>
                         <div class="stats-label">
                             <i data-feather="truck" class="me-1"></i>
-                            <%= __('') %>
+                            Today's Deliveries
                         </div>
                     </div>
                 </div>
@@ -58,7 +52,7 @@
                         <div class="stats-number" id="today-earnings">₹<%= earnings.toLocaleString() %></div>
                         <div class="stats-label">
                             <i data-feather="dollar-sign" class="me-1"></i>
-                            <%= __('todayEarnings') %>
+                            Today's Earnings
                         </div>
                     </div>
                 </div>
@@ -72,14 +66,13 @@
                         <div class="stats-number"><%= contractsEndingSoon.length %></div>
                         <div class="stats-label">
                             <i data-feather="alert-circle" class="me-1"></i>
-                            <%= __('contractsEndingSoon') %>
+                            Contracts Ending Soon
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="row">
         <!-- Today's Deliveries -->
         <div class="col-lg-8">
@@ -87,10 +80,10 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">
                         <i data-feather="truck" class="me-2"></i>
-                        <%= __(' title') %>
+                        Today's Deliveries
                     </h5>
                     <a href="/wholesaler/deliveries" class="btn btn-sm btn-outline-primary">
-                        <%= __(' viewAll') %>
+                        View All
                     </a>
                 </div>
                 <div class="card-body">
@@ -99,12 +92,12 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th><%= __(' vendor') %></th>
-                                        <th><%= __(' product') %></th>
-                                        <th><%= __(' quantity') %></th>
-                                        <th><%= __(' amount') %></th>
-                                        <th><%= __(' status') %></th>
-                                        <th><%= __(' action') %></th>
+                                        <th>Vendor</th>
+                                        <th>Product</th>
+                                        <th>Quantity</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -124,7 +117,7 @@
                                             <td>₹<%= order.total_amount.toLocaleString() %></td>
                                             <td>
                                                 <span class="status-badge status-<%= order.status %>">
-                                                    <%= __('order status.' + order.status) %>
+                                                    <%= order.status.charAt(0).toUpperCase() + order.status.slice(1) %>
                                                 </span>
                                             </td>
                                             <td>
@@ -132,7 +125,7 @@
                                                     <button type="button" class="btn btn-sm btn-success" 
                                                             onclick="OrderManager.markDelivered(<%= order.id %>, this)">
                                                         <i data-feather="check" style="width: 14px; height: 14px;"></i>
-                                                        <%= __('markDelivered') %>
+                                                        Mark as Delivered
                                                     </button>
                                                 <% } else { %>
                                                     <span class="text-muted">-</span>
@@ -146,9 +139,9 @@
                     <% } else { %>
                         <div class="text-center py-4">
                             <i data-feather="truck" style="width: 48px; height: 48px;" class="text-muted mb-3"></i>
-                            <p class="text-muted mb-3"><%= __('.empty') %></p>
+                            <p class="text-muted mb-3">No deliveries scheduled for today.</p>
                             <a href="/wholesaler/contracts" class="btn btn-primary">
-                                <%= __(' manageContracts') %>
+                                Manage Contracts
                             </a>
                         </div>
                     <% } %>
@@ -162,68 +155,78 @@
                 <div class="card-header">
                     <h6 class="mb-0">
                         <i data-feather="zap" class="me-2"></i>
-                        <%= __('quickActions title') %>
+                        Quick Actions
                     </h6>
                 </div>
                 <div class="card-body">
                     <div class="d-grid gap-2">
                         <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#contractModal">
                             <i data-feather="plus" class="me-2"></i>
-                            <%= __('quickActions createContract') %>
+                            Create Contract
                         </button>
                         <a href="/wholesaler/deliveries" class="btn btn-outline-success">
                             <i data-feather="truck" class="me-2"></i>
-                            <%= __('quickActions manageDeliveries') %>
+                            Manage Deliveries
                         </a>
                         <a href="/wholesaler/contracts" class="btn btn-outline-info">
                             <i data-feather="file-text" class="me-2"></i>
-                            <%= __('quickActions viewContracts') %>
+                            View Contracts
                         </a>
                     </div>
                 </div>
             </div>
-
-            <!-- Contracts Ending Soon -->
             <% if (contractsEndingSoon && contractsEndingSoon.length > 0) { %>
-                <div class="card">
-                    <div class="card-header bg-warning bg-opacity-10">
-                        <h6 class="mb-0 text-warning">
-                            <i data-feather="alert-triangle" class="me-2"></i>
-                            <%= __('contractsEndingSoon title') %>
-                        </h6>
-                    </div>
-                    <div class="card-body">
-                        <% contractsEndingSoon.forEach(contract => { %>
-                            <div class="border-start border-warning border-3 ps-3 mb-3">
-                                <h6 class="mb-1"><%= contract.product_name %></h6>
-                                <p class="text-muted small mb-1">
-                                    <%= __('contractsEndingSoon endDate') %>: 
-                                    <%= new Date(contract.end_date).toLocaleDateString() %>
-                                </p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="small text-warning">
-                                        <% 
-                                            const endDate = new Date(contract.end_date);
-                                            const today = new Date();
-                                            const diffTime = endDate - today;
-                                            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                                        %>
-                                        <%= diffDays %> <%= __(' daysLeft') %>
-                                    </span>
-                                    <!-- <button type="button" class="btn btn-sm btn-outline-warning" 
-                                            onclick="extendContract(<%= contract.id %>)">
-                                        <%= __('contractsEndingSoon extend') %>
-                                    </button> -->
-                                </div>
-                            </div>
-                        <% }); %>
+    <div class="card">
+        <div class="card-header bg-warning bg-opacity-10">
+            <h6 class="mb-0 text-warning">
+                <i data-feather="alert-triangle" class="me-2"></i>
+                Contracts Ending Soon
+            </h6>
+        </div>
+        <div class="card-body">
+            <% contractsEndingSoon.forEach(contract => { %>
+                <div class="border-start border-warning border-3 ps-3 mb-3">
+                    <h6 class="mb-1"><%= contract.product_name %></h6>
+                    <p class="text-muted small mb-1">
+                        End Date: 
+                        <%= new Date(contract.end_date).toLocaleDateString() %>
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="small text-warning">
+                            <% 
+                                const endDate = new Date(contract.end_date);
+                                const today = new Date();
+                                const diffTime = endDate - today;
+                                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                            %>
+                            <%= diffDays %> days left
+                        </span>
+                        <button type="button" class="btn btn-sm btn-outline-warning" 
+                                onclick="extendContract(<%= contract.id %>)">
+                            Extend Contract
+                        </button>
                     </div>
                 </div>
-            <% }
+            <% }); %>
         </div>
     </div>
+<% } else { %>
+    <div class="card">
+        <div class="card-header bg-success bg-opacity-10">
+            <h6 class="mb-0 text-success">
+                <i data-feather="check-circle" class="me-2"></i>
+                All Contracts Are Active
+            </h6>
+        </div>
+        <div class="card-body text-center">
+            <p class="text-muted mb-0">
+                No contracts are ending soon. Everything looks good!
+            </p>
+        </div>
+    </div>
+<% } %>
 </div>
-
+</div>
 <!-- Create Contract Modal -->
 <div class="modal fade" id="contractModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
@@ -231,7 +234,7 @@
             <div class="modal-header">
                 <h5 class="modal-title">
                     <i data-feather="plus-circle" class="me-2"></i>
-                    <%= __(' title') %>
+                    Create New Contract
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
@@ -240,75 +243,74 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="productName" class="form-label">
-                                <%= __(' productName') %>
+                                Product Name
                             </label>
                             <input type="text" class="form-control" id="productName" name="productName" required>
                             <div class="invalid-feedback">
-                                <%= __(' productNameRequired') %>
+                                Product name is required.
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="dailyQuantity" class="form-label">
-                                <%= __(' dailyQuantity') %>
+                                Daily Quantity
                             </label>
                             <input type="number" class="form-control" id="dailyQuantity" name="dailyQuantity" min="1" required>
                             <div class="invalid-feedback">
-                                <%= __(' dailyQuantityRequired') %>
+                                Daily quantity is required.
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="pricePerUnit" class="form-label">
-                                <%= __(' pricePerUnit') %>
+                                Price Per Unit
                             </label>
                             <div class="input-group">
                                 <span class="input-group-text">₹</span>
                                 <input type="number" class="form-control" id="pricePerUnit" name="pricePerUnit" step="0.01" min="0.01" required>
                             </div>
                             <div class="invalid-feedback">
-                                <%= __(' pricePerUnitRequired') %>
+                                Price per unit is required.
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="duration" class="form-label">
-                                <%= __(' duration') %>
+                                Contract Duration
                             </label>
                             <div class="input-group">
                                 <input type="number" class="form-control" id="duration" name="duration" min="1" max="365" required>
-                                <span class="input-group-text"><%= __(' days') %></span>
+                                <span class="input-group-text">days</span>
                             </div>
                             <div class="invalid-feedback">
-                                <%= __(' durationRequired') %>
+                                Duration is required.
                             </div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">
-                            <%= __(' description') %>
+                            Description
                         </label>
                         <textarea class="form-control" id="description" name="description" rows="3" 
-                                  placeholder="<%= __('descriptionPlaceholder') %>"></textarea>
+                                  placeholder="Optional notes about the contract..."></textarea>
                     </div>
                     <div class="alert alert-info">
                         <i data-feather="info" class="me-2"></i>
-                        <%= __('note') %>
+                        Please review all details before submitting the contract.
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    <%= __('cancel') %>
+                    Cancel
                 </button>
                 <button type="button" class="btn btn-primary" onclick="submitContract()">
                     <i data-feather="check" class="me-2"></i>
-                    <%= __('create') %>
+                    Create Contract
                 </button>
             </div>
         </div>
     </div>
 </div>
-
 <script>
 function submitContract() {
     const form = document.getElementById('contractForm');
@@ -329,9 +331,8 @@ function submitContract() {
     
     ContractManager.createContract(formData, button);
 }
-
 function extendContract(contractId) {
     // Implementation for extending contract
-    VendorConnect.showAlert('<%= __("contractsEndingSoon extendFeature") %>', 'info');
+    VendorConnect.showAlert('Extend feature is under development.', 'info');
 }
 </script>
