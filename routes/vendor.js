@@ -114,24 +114,26 @@ router.post('/order', async (req, res) => {
 
 // Cancel Order
 router.post('/order/:id/cancel', async (req, res) => {
-  // try {
-    // const orderId = req.params.id;
-    // const vendorId = req.session.user.id;
+   try {
+     const orderId = req.params.id;
+     const vendorId = req.session.user.id;
     
-    // const canCancel = await Order.canVendorCancelOrder(vendorId, orderId);
-    // if (!canCancel.allowed) {
-    //   return res.status(400).json({ 
-    //     success: false, 
-    //     message: canCancel.reason 
-    //   });
-    // }
+     const canCancel = await Order.canVendorCancelOrder(vendorId, orderId);
+     if (!canCancel.allowed) {
+       return res.status(400).json({ 
+         success: false, 
+         message: canCancel.reason 
+      });
+    }
     
-    // await Order.cancelByVendor(orderId, vendorId);
+    
+    await Order.cancelByVendor(orderId, vendorId);
     return res.json({ success: true, message: res.__('order.cancelled') });
-  // } catch (error) {
-  //   console.error('Cancel order error:', error);
-  //   res.status(500).json({ success: false, message: res.__('error.general') });
-  // }
+     }
+   catch (error) {
+     console.error('Cancel order error:', error);
+     res.status(500).json({ success: false, message: res.__('error.general') });
+   }
 });
 
 module.exports = router;
