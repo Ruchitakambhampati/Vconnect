@@ -41,7 +41,7 @@ class Order {
         RETURNING *
       `;
       const deliveryDate = new Date();
-      deliveryDate.setDate(deliveryDate.getDate() + 1); // Next day delivery
+      deliveryDate.setDate(deliveryDate.getDate() ); // Next day delivery
       
       const values = [vendorId, contractId, quantity, totalAmount, status, deliveryDate];
       const result = await client.query(orderQuery, values);
