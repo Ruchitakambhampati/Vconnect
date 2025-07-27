@@ -1,32 +1,35 @@
 
 
+
+
+
 <div class="container-fluid">
     <!-- Page Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h1 class="h3 mb-1"><%= __('Hello') %></h1>
+            <h1 class="h3 mb-1"><%= __('title') %></h1>
             <p class="text-muted mb-0">
                 <%= __('welcome') %>, <%= user.name %>!
             </p>
         </div>
         <div>
-            <a href="/vendor/contracts" class="btn btn-primary">
-                <i data-feather="file-text" class="me-2"></i>
-                <%= __(' browseContracts') %>
-            </a>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contractModal">
+                <i data-feather="plus" class="me-2"></i>
+                <%= __('createContract') %>
+            </button>
         </div>
     </div>
 
-    <!-- Stats Cards -->
+    <!-- Dashboard Stats -->
     <div class="row g-4 mb-4">
         <div class="col-md-3">
             <div class="stats-card info">
                 <div class="d-flex align-items-center">
                     <div class="flex-grow-1">
-                        <div class="stats-number" id="total-orders"><%= totalOrders %></div>
+                        <div class="stats-number" id="active-contracts"><%= activeContracts %></div>
                         <div class="stats-label">
-                            <i data-feather="shopping-cart" class="me-1"></i>
-                            <%= __(' totalOrders') %>
+                            <i data-feather="file-text" class="me-1"></i>
+                            <%= __('activeContracts') %>
                         </div>
                     </div>
                 </div>
@@ -37,10 +40,10 @@
             <div class="stats-card success">
                 <div class="d-flex align-items-center">
                     <div class="flex-grow-1">
-                        <div class="stats-number" id="active-orders"><%= activeOrders %></div>
+                        <div class="stats-number" id="today-deliveries"><%= todayDeliveries %></div>
                         <div class="stats-label">
                             <i data-feather="truck" class="me-1"></i>
-                            <%= __(' activeOrders') %>
+                            <%= __('todayDeliveries') %>
                         </div>
                     </div>
                 </div>
@@ -51,10 +54,10 @@
             <div class="stats-card warning">
                 <div class="d-flex align-items-center">
                     <div class="flex-grow-1">
-                        <div class="stats-number" id="free-attempts"><%= freeAttemptsRemaining %></div>
+                        <div class="stats-number" id="today-earnings">₹<%= earnings.toLocaleString() %></div>
                         <div class="stats-label">
-                            <i data-feather="gift" class="me-1"></i>
-                            <%= __(' freeAttempts') %>
+                            <i data-feather="dollar-sign" class="me-1"></i>
+                            <%= __('todayEarnings') %>
                         </div>
                     </div>
                 </div>
@@ -65,10 +68,10 @@
             <div class="stats-card">
                 <div class="d-flex align-items-center">
                     <div class="flex-grow-1">
-                        <div class="stats-number" id="contracts-available"><%= availableContracts %></div>
+                        <div class="stats-number"><%= contractsEndingSoon.length %></div>
                         <div class="stats-label">
-                            <i data-feather="file-text" class="me-1"></i>
-                            <%= __(' availableContracts') %>
+                            <i data-feather="alert-circle" class="me-1"></i>
+                            <%= __('contractsEndingSoon') %>
                         </div>
                     </div>
                 </div>
@@ -76,17 +79,17 @@
         </div>
     </div>
 
-    <!-- Recent Activity -->
     <div class="row">
+        <!-- Today's Deliveries -->
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">
-                        <i data-feather="activity" class="me-2"></i>
-                        <%= __(' recent Orders title') %>
+                        <i data-feather="truck" class="me-2"></i>
+                        <%= __('todayDeliveries title') %>
                     </h5>
-                    <a href="/vendor/orders" class="btn btn-sm btn-outline-primary">
-                        <%= __(' recent Orders viewAll') %>
+                    <a href="/wholesaler/deliveries" class="btn btn-sm btn-outline-primary">
+                        <%= __('todayDeliveries viewAll') %>
                     </a>
                 </div>
                 <div class="card-body">
@@ -95,37 +98,44 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th><%= __(' recentOrders product') %></th>
-                                        <th><%= __(' recentOrders wholesaler') %></th>
-                                        <th><%= __(' recentOrders quantity') %></th>
-                                        <th><%= __(' recentOrders amount') %></th>
-                                        <th><%= __(' recentOrders status') %></th>
-                                        <th><%= __(' recentOrders delivery') %></th>
+                                        <th><%= __('todayDeliveries vendor') %></th>
+                                        <th><%= __('todayDeliveries product') %></th>
+                                        <th><%= __('todayDeliveries quantity') %></th>
+                                        <th><%= __('todayDeliveries amount') %></th>
+                                        <th><%= __('todayDeliveries status') %></th>
+                                        <th><%= __('todayDeliveries action') %></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <% recentOrders.forEach(order => { %>
                                         <tr>
                                             <td>
-                                                <strong><%= order.product_name %></strong>
-                                            </td>
-                                            <td>
-                                                <%= order.wholesaler_name %>
-                                                <% if (order.business_name) { %>
-                                                    <br><small class="text-muted"><%= order.business_name %></small>
+                                                <strong><%= order.vendor_name %></strong>
+                                                <% if (order.vendor_phone) { %>
+                                                    <br><small class="text-muted">
+                                                        <i data-feather="phone" style="width: 12px; height: 12px;"></i>
+                                                        <%= order.vendor_phone %>
+                                                    </small>
                                                 <% } %>
                                             </td>
+                                            <td><%= order.product_name %></td>
                                             <td><%= order.quantity %> units</td>
                                             <td>₹<%= order.total_amount.toLocaleString() %></td>
                                             <td>
                                                 <span class="status-badge status-<%= order.status %>">
-                                                    <%= __( order.status) %>
+                                                    <%= __('order status.' + order.status) %>
                                                 </span>
                                             </td>
                                             <td>
-                                                <small class="text-muted">
-                                                    <%= new Date(order.delivery_date).toLocaleDateString() %>
-                                                </small>
+                                                <% if (order.status === 'pending' || order.status === 'confirmed') { %>
+                                                    <button type="button" class="btn btn-sm btn-success" 
+                                                            onclick="OrderManager.markDelivered(<%= order.id %>, this)">
+                                                        <i data-feather="check" style="width: 14px; height: 14px;"></i>
+                                                        <%= __('markDelivered') %>
+                                                    </button>
+                                                <% } else { %>
+                                                    <span class="text-muted">-</span>
+                                                <% } %>
                                             </td>
                                         </tr>
                                     <% }); %>
@@ -134,10 +144,10 @@
                         </div>
                     <% } else { %>
                         <div class="text-center py-4">
-                            <i data-feather="inbox" style="width: 48px; height: 48px;" class="text-muted mb-3"></i>
-                            <p class="text-muted mb-3"><%= __(' recentOrders.empty') %></p>
-                            <a href="/vendor/contracts" class="btn btn-primary">
-                                <%= __(' recentOrders browseContracts') %>
+                            <i data-feather="truck" style="width: 48px; height: 48px;" class="text-muted mb-3"></i>
+                            <p class="text-muted mb-3"><%= __('todayDeliveries.empty') %></p>
+                            <a href="/wholesaler/contracts" class="btn btn-primary">
+                                <%= __('todayDeliveries manageContracts') %>
                             </a>
                         </div>
                     <% } %>
@@ -149,49 +159,192 @@
             <!-- Quick Actions -->
             <div class="card mb-4">
                 <div class="card-header">
-                    <h5 class="mb-0">
+                    <h6 class="mb-0">
                         <i data-feather="zap" class="me-2"></i>
-                        <%= __(' quickActions title') %>
-                    </h5>
+                        <%= __('quickActions title') %>
+                    </h6>
                 </div>
                 <div class="card-body">
                     <div class="d-grid gap-2">
-                        <a href="/vendor/contracts" class="btn btn-outline-primary">
-                            <i data-feather="search" class="me-2"></i>
-                            <%= __(' quickActions findContracts') %>
-                        </a>
-                        <a href="/vendor/orders" class="btn btn-outline-success">
-                            <i data-feather="shopping-cart" class="me-2"></i>
-                            <%= __(' quickActions manageOrders') %>
-                        </a>
-                        <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#helpModal">
-                            <i data-feather="help-circle" class="me-2"></i>
-                            <%= __(' quickActions help') %>
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#contractModal">
+                            <i data-feather="plus" class="me-2"></i>
+                            <%= __('quickActions createContract') %>
                         </button>
+                        <a href="/wholesaler/deliveries" class="btn btn-outline-success">
+                            <i data-feather="truck" class="me-2"></i>
+                            <%= __('quickActions manageDeliveries') %>
+                        </a>
+                        <a href="/wholesaler/contracts" class="btn btn-outline-info">
+                            <i data-feather="file-text" class="me-2"></i>
+                            <%= __('quickActions viewContracts') %>
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <!-- Important Notice -->
-            <div class="card">
-                <div class="card-header bg-warning bg-opacity-10">
-                    <h6 class="mb-0 text-warning">
+            <!-- Contracts Ending Soon -->
+            <% if (contractsEndingSoon && contractsEndingSoon.length > 0) { %>
+                <div class="card">
+                    <div class="card-header bg-warning bg-opacity-10">
+                        <h6 class="mb-0 text-warning">
+                            <i data-feather="alert-triangle" class="me-2"></i>
+                            <%= __('contractsEndingSoon title') %>
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <% contractsEndingSoon.forEach(contract => { %>
+                            <div class="border-start border-warning border-3 ps-3 mb-3">
+                                <h6 class="mb-1"><%= contract.product_name %></h6>
+                                <p class="text-muted small mb-1">
+                                    <%= __('contractsEndingSoon endDate') %>: 
+                                    <%= new Date(contract.end_date).toLocaleDateString() %>
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="small text-warning">
+                                        <% 
+                                            const endDate = new Date(contract.end_date);
+                                            const today = new Date();
+                                            const diffTime = endDate - today;
+                                            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                                        %>
+                                        <%= diffDays %> <%= __('contractsEndingSoon daysLeft') %>
+                                    </span>
+                                    <button type="button" class="btn btn-sm btn-outline-warning" 
+                                            onclick="extendContract(<%= contract.id %>)">
+                                        <%= __('contractsEndingSoon extend') %>
+                                    </button>
+                                </div>
+                            </div>
+                        <% }); %>
+                    </div>
+                </div>
+            <% } else { %>
+                <div class="card">
+                    <div class="card-header bg-success bg-opacity-10">
+                        <h6 class="mb-0 text-success">
+                            <i data-feather="check-circle" class="me-2"></i>
+                            <%= __('allGood.title') %>
+                        </h6>
+                    </div>
+                    <div class="card-body text-center">
+                        <p class="text-muted mb-0">
+                            <%= __('allGood.message') %>
+                        </p>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<!-- Create Contract Modal -->
+<div class="modal fade" id="contractModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i data-feather="plus-circle" class="me-2"></i>
+                    <%= __(' title') %>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="contractForm" class="needs-validation" novalidate>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="productName" class="form-label">
+                                <%= __(' productName') %>
+                            </label>
+                            <input type="text" class="form-control" id="productName" name="productName" required>
+                            <div class="invalid-feedback">
+                                <%= __(' productNameRequired') %>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="dailyQuantity" class="form-label">
+                                <%= __(' dailyQuantity') %>
+                            </label>
+                            <input type="number" class="form-control" id="dailyQuantity" name="dailyQuantity" min="1" required>
+                            <div class="invalid-feedback">
+                                <%= __(' dailyQuantityRequired') %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="pricePerUnit" class="form-label">
+                                <%= __(' pricePerUnit') %>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text">₹</span>
+                                <input type="number" class="form-control" id="pricePerUnit" name="pricePerUnit" step="0.01" min="0.01" required>
+                            </div>
+                            <div class="invalid-feedback">
+                                <%= __(' pricePerUnitRequired') %>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="duration" class="form-label">
+                                <%= __(' duration') %>
+                            </label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="duration" name="duration" min="1" max="365" required>
+                                <span class="input-group-text"><%= __(' days') %></span>
+                            </div>
+                            <div class="invalid-feedback">
+                                <%= __(' durationRequired') %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">
+                            <%= __(' description') %>
+                        </label>
+                        <textarea class="form-control" id="description" name="description" rows="3" 
+                                  placeholder="<%= __('descriptionPlaceholder') %>"></textarea>
+                    </div>
+                    <div class="alert alert-info">
                         <i data-feather="info" class="me-2"></i>
-                        <%= __(' notice ') %>
-                    </h6>
-                </div>
-                <div class="card-body">
-                    <p class="mb-2">
-                        <strong><%= __(' freeAttempts') %>:</strong>
-                        <%= freeAttemptsRemaining %> <%= __(' remaining') %>
-                    </p>
-                    <p class="mb-0 small text-muted">
-                        <%= __(' description') %>
-                    </p>
-                </div>
+                        <%= __('note') %>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <%= __('cancel') %>
+                </button>
+                <button type="button" class="btn btn-primary" onclick="submitContract()">
+                    <i data-feather="check" class="me-2"></i>
+                    <%= __('create') %>
+                </button>
             </div>
         </div>
     </div>
 </div>
 
+<script>
+function submitContract() {
+    const form = document.getElementById('contractForm');
+    const button = event.target;
+    
+    if (!form.checkValidity()) {
+        form.classList.add('was-validated');
+        return;
+    }
+    
+    const formData = {
+        productName: document.getElementById('productName').value,
+        dailyQuantity: document.getElementById('dailyQuantity').value,
+        pricePerUnit: document.getElementById('pricePerUnit').value,
+        duration: document.getElementById('duration').value,
+        description: document.getElementById('description').value
+    };
+    
+    ContractManager.createContract(formData, button);
+}
 
+function extendContract(contractId) {
+    // Implementation for extending contract
+    VendorConnect.showAlert('<%= __("contractsEndingSoon.extendFeature") %>', 'info');
+}
+</script>
