@@ -1,0 +1,127 @@
+an app where different streetvendors and different wholesale suppliers will login so that wholesale marketers will have different contracts for quantity to deliver and cost of delivery where the vendors can have a limit to get deliveries for first 5 or n attempts without any contract and then they have to go for any contract and they had chance for cancelling order for any 5 or n limit so that they cant get wasted if not required wholesale shopkeepers can get their orders and can accept the vendor requests and there can be cash on delivery option
+ or autodeduction so that both can get benifited 
+Great! On the seller (wholeseller) side of your VendorConnect app, the UI and features should focus on:
+
+Managing offered contracts
+
+Tracking ongoing deliveries
+
+Viewing vendor behavior
+
+Analyzing earnings and inventory planning
+
+🛒 Seller (Wholeseller) Dashboard: Key Sections
+1. Dashboard Overview
+Shows quick stats like:
+
+📦 Active Contracts: 3
+
+✅ Today's Deliveries: 5
+
+💰 Earnings Today: ₹5,000
+
+📊 Products Under Contract: Tomatoes, Onions
+
+📅 Contracts Ending Soon
+
+2. Contracts Section
+a. My Offers
+List of all contracts the seller has offered.
+Each contract card should show:
+
+Product name
+
+Daily quantity offered
+
+Price per unit
+
+Duration (start & end date)
+
+No. of vendors accepted
+
+Status: Active / Pending / Expired
+
+🟢 Action Buttons:
+
+Edit Offer
+
+Stop Offer
+
+View Acceptances
+
+b. Accepted Contracts
+Each row/card should show:
+
+Vendor Name
+
+Product
+
+Daily Quantity
+
+Start - End Date
+
+Delivery Time Window
+
+Current Day Status (Pending/Delivered)
+
+🟢 Actions:
+
+Mark as Delivered
+
+Chat with Vendor
+
+Report Missed Pickup
+
+View Full Contract
+
+3. Delivery Management (Daily)
+A delivery checklist per day:
+
+📅 Date: 26 July 2025
+
+🧾 List of vendors and products to deliver today
+
+🧮 Quantity breakdown (by vendor)
+
+✔️ Status for each delivery
+
+🗂 Export as Delivery Sheet (PDF/CSV)
+
+4. Inventory Planning Assistant (optional AI-based)
+Helps the seller prepare inventory ahead of time based on:
+
+Upcoming deliveries
+
+Current contracts
+
+Missed deliveries (forecast buffer)
+
+5. Earnings Tracker
+Simple graph/chart of:
+
+Total earnings from contracts (daily/weekly/monthly)
+
+Breakdown per vendor/product
+
+Payment status (received/pending)
+
+6. Review & Ratings
+Shows feedback from vendors:
+
+Timeliness
+
+Product quality
+
+Communication
+
+Overall rating
+Helps build trust for future contracts.
+
+✨ Bonus Features (Optional but Powerful)
+Bulk Upload Offer Contracts: For sellers dealing with 20+ products
+
+Dynamic Pricing Suggestions: Based on volume and competitor pricing
+
+Smart Notifications: Alert seller if contract deliveries are due within 1 hour
+
+Seller Profile Badge: “Reliable Partner” if 90% contracts are successfully fulfilled this should be on wholesaler side
