@@ -64,7 +64,7 @@ app.use('/wholesaler', wholesalerRoutes);
 app.use('/api', apiRoutes);
 
 // Home route
-app.get('/', '0.0.0.0',(req, res) => {
+app.get('/',(req, res) => {
   if (req.session.user) {
     if (req.session.user.role === 'vendor') {
       return res.redirect('/vendor/dashboard');
