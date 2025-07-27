@@ -12,7 +12,7 @@
         <div>
             <a href="/vendor/contracts" class="btn btn-primary">
                 <i data-feather="file-text" class="me-2"></i>
-                <%= __(' browseContracts') %>
+                <%= __(' browse Contracts') %>
             </a>
         </div>
     </div>
@@ -26,7 +26,7 @@
                         <div class="stats-number" id="total-orders"><%= totalOrders %></div>
                         <div class="stats-label">
                             <i data-feather="shopping-cart" class="me-1"></i>
-                            <%= __(' totalOrders') %>
+                            <%= __(' total Orders') %>
                         </div>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                         <div class="stats-number" id="active-orders"><%= activeOrders %></div>
                         <div class="stats-label">
                             <i data-feather="truck" class="me-1"></i>
-                            <%= __(' activeOrders') %>
+                            <%= __(' active Orders') %>
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                         <div class="stats-number" id="free-attempts"><%= freeAttemptsRemaining %></div>
                         <div class="stats-label">
                             <i data-feather="gift" class="me-1"></i>
-                            <%= __(' freeAttempts') %>
+                            <%= __(' free Attempts') %>
                         </div>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                         <div class="stats-number" id="contracts-available"><%= availableContracts %></div>
                         <div class="stats-label">
                             <i data-feather="file-text" class="me-1"></i>
-                            <%= __(' availableContracts') %>
+                            <%= __(' available Contracts') %>
                         </div>
                     </div>
                 </div>
@@ -83,10 +83,10 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">
                         <i data-feather="activity" class="me-2"></i>
-                        <%= __(' recent Orders title') %>
+                        <%= __(' recent Orders ') %>
                     </h5>
                     <a href="/vendor/orders" class="btn btn-sm btn-outline-primary">
-                        <%= __(' recent Orders viewAll') %>
+                        <%= __(' recent Orders view') %>
                     </a>
                 </div>
                 <div class="card-body">
@@ -135,9 +135,9 @@
                     <% } else { %>
                         <div class="text-center py-4">
                             <i data-feather="inbox" style="width: 48px; height: 48px;" class="text-muted mb-3"></i>
-                            <p class="text-muted mb-3"><%= __(' recentOrders.empty') %></p>
+                            <p class="text-muted mb-3"><%= __(' recentOrders empty') %></p>
                             <a href="/vendor/contracts" class="btn btn-primary">
-                                <%= __(' recentOrders browseContracts') %>
+                                <%= __(' recentOrders browse Contracts') %>
                             </a>
                         </div>
                     <% } %>
@@ -151,22 +151,22 @@
                 <div class="card-header">
                     <h5 class="mb-0">
                         <i data-feather="zap" class="me-2"></i>
-                        <%= __(' quickActions title') %>
+                        <%= __(' quickActions ') %>
                     </h5>
                 </div>
                 <div class="card-body">
                     <div class="d-grid gap-2">
                         <a href="/vendor/contracts" class="btn btn-outline-primary">
                             <i data-feather="search" class="me-2"></i>
-                            <%= __(' quickActions findContracts') %>
+                            <%= __(' findContracts') %>
                         </a>
                         <a href="/vendor/orders" class="btn btn-outline-success">
                             <i data-feather="shopping-cart" class="me-2"></i>
-                            <%= __(' quickActions manageOrders') %>
+                            <%= __('  manageOrders') %>
                         </a>
                         <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#helpModal">
                             <i data-feather="help-circle" class="me-2"></i>
-                            <%= __(' quickActions help') %>
+                            <%= __(' help') %>
                         </button>
                     </div>
                 </div>
@@ -185,9 +185,7 @@
                         <strong><%= __(' freeAttempts') %>:</strong>
                         <%= freeAttemptsRemaining %> <%= __(' remaining') %>
                     </p>
-                    <p class="mb-0 small text-muted">
-                        <%= __(' description') %>
-                    </p>
+                    
                 </div>
             </div>
         </div>
