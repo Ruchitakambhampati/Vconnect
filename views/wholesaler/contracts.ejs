@@ -54,7 +54,7 @@
                             </div>
                             <div class="text-muted small">
                                 <i data-feather="users" class="me-1"></i>
-                                <%= __('.stats.totalVendors') %>
+                                <%= __('totalVendors') %>
                             </div>
                         </div>
                     </div>
@@ -105,12 +105,12 @@
             <div class="row g-3">
                 <div class="col-md-4">
                     <input type="text" class="form-control" id="searchContracts" 
-                           placeholder="<%= __('.searchPlaceholder') %>">
+                           placeholder="<%= __('.search') %>">
                 </div>
                 <div class="col-md-2">
                     <select class="form-select" id="statusFilter">
-                        <option value=""><%= __('.allStatuses') %></option>
-                        <option value="active"><%= __('cactive') %></option>
+                        <option value=""><%= __('Statuses') %></option>
+                        <option value="active"><%= __('active') %></option>
                         <option value="inactive"><%= __('inactive') %></option>
                         <option value="expired"><%= __('expired') %></option>
                     </select>
@@ -126,11 +126,11 @@
                 <div class="col-md-4 text-end">
                     <button class="btn btn-outline-secondary me-2" onclick="exportContracts()">
                         <i data-feather="download" class="me-1"></i>
-                        <%= __('.export') %>
+                        <%= __('export') %>
                     </button>
                     <button class="btn btn-outline-info" onclick="refreshContracts()">
                         <i data-feather="refresh-cw" class="me-1"></i>
-                        <%= __('.refresh') %>
+                        <%= __('refresh') %>
                     </button>
                 </div>
             </div>
@@ -153,20 +153,20 @@
                                     <li>
                                         <button class="dropdown-item" onclick="editContract(<%= contract.id %>)">
                                             <i data-feather="edit" class="me-2"></i>
-                                            <%= __('.edit') %>
+                                            <%= __('edit') %>
                                         </button>
                                     </li>
                                     <li>
                                         <button class="dropdown-item" onclick="viewOrders(<%= contract.id %>)">
                                             <i data-feather="eye" class="me-2"></i>
-                                            <%= __('.viewOrders') %>
+                                            <%= __('viewOrders') %>
                                         </button>
                                     </li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li>
                                         <button class="dropdown-item text-danger" onclick="ContractManager.deactivateContract(<%= contract.id %>, this)">
                                             <i data-feather="pause-circle" class="me-2"></i>
-                                            <%= __('.deactivate') %>
+                                            <%= __('deactivate') %>
                                         </button>
                                     </li>
                                 </ul>
@@ -175,19 +175,19 @@
                         <div class="card-body">
                             <div class="contract-details mb-3">
                                 <div class="contract-detail">
-                                    <div class="contract-detail-label"><%= __('.dailyQuantity') %></div>
+                                    <div class="contract-detail-label"><%= __('dailyQuantity') %></div>
                                     <div class="contract-detail-value"><%= contract.daily_quantity %> units</div>
                                 </div>
                                 <div class="contract-detail">
-                                    <div class="contract-detail-label"><%= __('.pricePerUnit') %></div>
+                                    <div class="contract-detail-label"><%= __('pricePerUnit') %></div>
                                     <div class="contract-detail-value">₹<%= contract.price_per_unit %></div>
                                 </div>
                                 <div class="contract-detail">
-                                    <div class="contract-detail-label"><%= __('.duration') %></div>
+                                    <div class="contract-detail-label"><%= __('duration') %></div>
                                     <div class="contract-detail-value"><%= contract.duration_days %> days</div>
                                 </div>
                                 <div class="contract-detail">
-                                    <div class="contract-detail-label"><%= __('.acceptedVendors') %></div>
+                                    <div class="contract-detail-label"><%= __('acceptedVendors') %></div>
                                     <div class="contract-detail-value"><%= contract.accepted_vendors || 0 %></div>
                                 </div>
                             </div>
@@ -231,7 +231,7 @@
                                     <span class="fw-bold text-success">
                                         ₹<%= (contract.daily_quantity * contract.price_per_unit * contract.duration_days).toLocaleString() %>
                                     </span>
-                                    <small class="text-muted d-block"><%= __('.totalValue') %></small>
+                                    <small class="text-muted d-block"><%= __('totalValue') %></small>
                                 </div>
                             </div>
                         </div>
@@ -240,13 +240,13 @@
                                 <div class="col">
                                     <button class="btn btn-outline-primary btn-sm w-100" onclick="viewOrders(<%= contract.id %>)">
                                         <i data-feather="shopping-cart" class="me-1"></i>
-                                        <%= contract.total_orders || 0 %> <%= __('.orders') %>
+                                        <%= contract.total_orders || 0 %> <%= __('orders') %>
                                     </button>
                                 </div>
                                 <div class="col">
                                     <button class="btn btn-outline-success btn-sm w-100" onclick="viewVendors(<%= contract.id %>)">
                                         <i data-feather="users" class="me-1"></i>
-                                        <%= contract.accepted_vendors || 0 %> <%= __('.vendors') %>
+                                        <%= contract.accepted_vendors || 0 %> <%= __('vendors') %>
                                     </button>
                                 </div>
                             </div>
@@ -279,7 +279,7 @@
             <div class="modal-header">
                 <h5 class="modal-title">
                     <i data-feather="plus-circle" class="me-2"></i>
-                    <%= __('.createModal.title') %>
+                    <%= __('title') %>
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
@@ -288,69 +288,69 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="productName" class="form-label">
-                                <%= __('.createModal.productName') %>
+                                <%= __('productName') %>
                             </label>
                             <input type="text" class="form-control" id="productName" name="productName" required>
                             <div class="invalid-feedback">
-                                <%= __('.createModal.productNameRequired') %>
+                                <%= __('productNameRequired') %>
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="dailyQuantity" class="form-label">
-                                <%= __('.createModal.dailyQuantity') %>
+                                <%= __('dailyQuantity') %>
                             </label>
                             <input type="number" class="form-control" id="dailyQuantity" name="dailyQuantity" min="1" required>
                             <div class="invalid-feedback">
-                                <%= __('.createModal.dailyQuantityRequired') %>
+                                <%= __('dailyQuantityRequired') %>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="pricePerUnit" class="form-label">
-                                <%= __('.createModal.pricePerUnit') %>
+                                <%= __('pricePerUnit') %>
                             </label>
                             <div class="input-group">
                                 <span class="input-group-text">₹</span>
                                 <input type="number" class="form-control" id="pricePerUnit" name="pricePerUnit" step="0.01" min="0.01" required>
                             </div>
                             <div class="invalid-feedback">
-                                <%= __('.createModal.pricePerUnitRequired') %>
+                                <%= __('pricePerUnitRequired') %>
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="duration" class="form-label">
-                                <%= __('.createModal.duration') %>
+                                <%= __('duration') %>
                             </label>
                             <div class="input-group">
                                 <input type="number" class="form-control" id="duration" name="duration" min="1" max="365" required>
-                                <span class="input-group-text"><%= __('.createModal.days') %></span>
+                                <span class="input-group-text"><%= __('days') %></span>
                             </div>
                             <div class="invalid-feedback">
-                                <%= __('.createModal.durationRequired') %>
+                                <%= __('durationRequired') %>
                             </div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">
-                            <%= __('.createModal.description') %>
+                            <%= __('description') %>
                         </label>
                         <textarea class="form-control" id="description" name="description" rows="3" 
-                                  placeholder="<%= __('.createModal.descriptionPlaceholder') %>"></textarea>
+                                  placeholder="<%= __('description') %>"></textarea>
                     </div>
                     <div class="alert alert-info">
                         <i data-feather="info" class="me-2"></i>
-                        <%= __('.createModal.note') %>
+                        <%= __('note') %>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    <%= __('common.cancel') %>
+                    <%= __('cancel') %>
                 </button>
                 <button type="button" class="btn btn-primary" onclick="submitContract()">
                     <i data-feather="check" class="me-2"></i>
-                    <%= __('.createModal.create') %>
+                    <%= __('create') %>
                 </button>
             </div>
         </div>
