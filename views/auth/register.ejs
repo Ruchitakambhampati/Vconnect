@@ -1,5 +1,4 @@
-
-
+<!-- Modified labels for better clarity -->
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
@@ -7,8 +6,8 @@
                 <div class="card-body p-5">
                     <div class="text-center mb-4">
                         <i data-feather="user-plus" style="width: 48px; height: 48px;" class="text-primary mb-3"></i>
-                        <h2 class="h3 mb-2"><%= __('auth.register.title') %></h2>
-                        <p class="text-muted"><%= __('auth.register.subtitle') %></p>
+                        <h2 class="h3 mb-2">Create Your Account</h2>
+                        <p class="text-muted">Fill in the details to get started</p>
                     </div>
 
                     <% if (error) { %>
@@ -24,35 +23,35 @@
                             <div class="col-md-6 mb-3">
                                 <label for="name" class="form-label">
                                     <i data-feather="user" class="me-1" style="width: 16px; height: 16px;"></i>
-                                    <%= __('auth.register.name') %>
+                                    Full Name
                                 </label>
                                 <input 
                                     type="text" 
                                     class="form-control" 
                                     id="name" 
                                     name="name" 
-                                    placeholder="<%= __('auth.register.namePlaceholder') %>"
+                                    placeholder="Enter your full name"
                                     required
                                 >
                                 <div class="invalid-feedback">
-                                    <%= __('auth.register.nameRequired') %>
+                                    Name is required
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="email" class="form-label">
                                     <i data-feather="mail" class="me-1" style="width: 16px; height: 16px;"></i>
-                                    <%= __('auth.register.email') %>
+                                    Email Address
                                 </label>
                                 <input 
                                     type="email" 
                                     class="form-control" 
                                     id="email" 
                                     name="email" 
-                                    placeholder="<%= __('auth.register.emailPlaceholder') %>"
+                                    placeholder="Enter your email address"
                                     required
                                 >
                                 <div class="invalid-feedback">
-                                    <%= __('auth.register.emailRequired') %>
+                                    Email is required
                                 </div>
                             </div>
                         </div>
@@ -61,36 +60,36 @@
                             <div class="col-md-6 mb-3">
                                 <label for="password" class="form-label">
                                     <i data-feather="lock" class="me-1" style="width: 16px; height: 16px;"></i>
-                                    <%= __('auth.register.password') %>
+                                    Password
                                 </label>
                                 <input 
                                     type="password" 
                                     class="form-control" 
                                     id="password" 
                                     name="password" 
-                                    placeholder="<%= __('auth.register.passwordPlaceholder') %>"
+                                    placeholder="Create a strong password"
                                     required
                                     minlength="6"
                                 >
                                 <div class="invalid-feedback">
-                                    <%= __('auth.register.passwordRequired') %>
+                                    Password is required (min 6 characters)
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="confirmPassword" class="form-label">
                                     <i data-feather="lock" class="me-1" style="width: 16px; height: 16px;"></i>
-                                    <%= __('auth.register.confirmPassword') %>
+                                    Confirm Password
                                 </label>
                                 <input 
                                     type="password" 
                                     class="form-control" 
                                     id="confirmPassword" 
                                     name="confirmPassword" 
-                                    placeholder="<%= __('auth.register.confirmPasswordPlaceholder') %>"
+                                    placeholder="Re-enter your password"
                                     required
                                 >
                                 <div class="invalid-feedback">
-                                    <%= __('auth.register.confirmPasswordRequired') %>
+                                    Please confirm your password
                                 </div>
                             </div>
                         </div>
@@ -99,32 +98,32 @@
                             <div class="col-md-6 mb-3">
                                 <label for="phone" class="form-label">
                                     <i data-feather="phone" class="me-1" style="width: 16px; height: 16px;"></i>
-                                    <%= __('auth.register.phone') %>
+                                    Phone Number
                                 </label>
                                 <input 
                                     type="tel" 
                                     class="form-control" 
                                     id="phone" 
                                     name="phone" 
-                                    placeholder="<%= __('auth.register.phonePlaceholder') %>"
+                                    placeholder="e.g. +91 9876543210"
                                     required
                                 >
                                 <div class="invalid-feedback">
-                                    <%= __('auth.register.phoneRequired') %>
+                                    Phone number is required
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="role" class="form-label">
                                     <i data-feather="briefcase" class="me-1" style="width: 16px; height: 16px;"></i>
-                                    <%= __('auth.register.role') %>
+                                    Register As
                                 </label>
                                 <select class="form-select" id="role" name="role" required>
-                                    <option value=""><%= __('auth.register.selectRole') %></option>
-                                    <option value="vendor"><%= __('auth.register.roleVendor') %></option>
-                                    <option value="wholesaler"><%= __('auth.register.roleWholesaler') %></option>
+                                    <option value="">Select your role</option>
+                                    <option value="vendor">Vendor</option>
+                                    <option value="wholesaler">Wholesaler</option>
                                 </select>
                                 <div class="invalid-feedback">
-                                    <%= __('auth.register.roleRequired') %>
+                                    Please select your role
                                 </div>
                             </div>
                         </div>
@@ -133,44 +132,42 @@
                         <div class="mb-3">
                             <label for="businessName" class="form-label">
                                 <i data-feather="building" class="me-1" style="width: 16px; height: 16px;"></i>
-                                <%= __('auth.register.businessName') %>
-                                <small class="text-muted">(<%= __('auth.register.optional') %>)</small>
+                                Business Name <small class="text-muted">(optional)</small>
                             </label>
                             <input 
                                 type="text" 
                                 class="form-control" 
                                 id="businessName" 
                                 name="businessName" 
-                                placeholder="<%= __('auth.register.businessNamePlaceholder') %>"
+                                placeholder="Enter your business name (if any)"
                             >
                         </div>
 
                         <div class="mb-4">
                             <label for="address" class="form-label">
                                 <i data-feather="map-pin" class="me-1" style="width: 16px; height: 16px;"></i>
-                                <%= __('auth.register.address') %>
-                                <small class="text-muted">(<%= __('auth.register.optional') %>)</small>
+                                Address <small class="text-muted">(optional)</small>
                             </label>
                             <textarea 
                                 class="form-control" 
                                 id="address" 
                                 name="address" 
                                 rows="2" 
-                                placeholder="<%= __('auth.register.addressPlaceholder') %>"
+                                placeholder="Enter your address"
                             ></textarea>
                         </div>
 
                         <button type="submit" class="btn btn-primary w-100 mb-3">
                             <i data-feather="user-plus" class="me-2" style="width: 16px; height: 16px;"></i>
-                            <%= __('auth.register.submit') %>
+                            Sign Up
                         </button>
                     </form>
 
                     <div class="text-center">
                         <p class="text-muted mb-0">
-                            <%= __('auth.register.hasAccount') %>
+                            Already have an account?
                             <a href="/auth/login" class="text-decoration-none">
-                                <%= __('auth.register.loginLink') %>
+                                Log in here
                             </a>
                         </p>
                     </div>
@@ -180,43 +177,14 @@
     </div>
 </div>
 
-<style>
-.card {
-    border-radius: 16px;
-}
-
-.form-control:focus,
-.form-select:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.1);
-}
-
-.btn-primary {
-    background: linear-gradient(135deg, var(--primary-color), #3b82f6);
-    border: none;
-    border-radius: 8px;
-    padding: 12px;
-    font-weight: 500;
-}
-
-.btn-primary:hover {
-    background: linear-gradient(135deg, #1d4ed8, var(--primary-color));
-    transform: translateY(-1px);
-}
-
-.form-select {
-    border-radius: 8px;
-}
-</style>
-
 <script>
 // Password confirmation validation
 document.getElementById('confirmPassword').addEventListener('input', function() {
     const password = document.getElementById('password').value;
     const confirmPassword = this.value;
-    
+
     if (password !== confirmPassword) {
-        this.setCustomValidity('<%= __("auth.register.passwordMismatch") %>');
+        this.setCustomValidity('Passwords do not match');
     } else {
         this.setCustomValidity('');
     }

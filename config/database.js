@@ -2,8 +2,13 @@ const { Pool } = require('pg');
 
 // Database configuration
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+  user: 'postgres',
+  host: 'localhost',
+  database: 'vconn',
+  password: 'postgres123@', // <-- your real password
+  port: 5432,
+  ssl: false
+ 
 });
 
 // Test connection

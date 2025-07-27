@@ -1,17 +1,16 @@
 
-
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6 text-center">
             <div class="error-container">
                 <i data-feather="alert-circle" style="width: 64px; height: 64px;" class="text-warning mb-3"></i>
-                <h1 class="display-4 mb-3"><%= __('error.title') || 'Error' %></h1>
+                <h1 class="display-4 mb-3"><%= 'Oops! Something Went Wrong' %></h1>
                 <p class="lead mb-4">
-                    <%= message || __('error.general') || 'Something went wrong' %>
+                    <%= message || 'An unexpected error occurred. Please try again later.' %>
                 </p>
                 <a href="/" class="btn btn-primary">
                     <i data-feather="home" class="me-2"></i>
-                    <%= __('error.backHome') || 'Back to Home' %>
+                    <%= 'Go to Homepage' %>
                 </a>
             </div>
         </div>

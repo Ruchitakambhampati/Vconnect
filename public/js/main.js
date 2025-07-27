@@ -1,5 +1,6 @@
 // VendorConnect Frontend JavaScript
 
+
 // Global utilities
 const VendorConnect = {
   // Show loading state
@@ -129,10 +130,21 @@ const ContractManager = {
         // Reset form and close modal
         const form = button.closest('form');
         if (form) form.reset();
-        
-        const modal = bootstrap.Modal.getInstance(button.closest('.modal'));
-        if (modal) modal.hide();
-        
+        const modalElement = button.closest('.modal');
+if (modalElement) {
+  const modal = bootstrap.Modal.getInstance(modalElement);
+  if (modal) {
+    modal.hide();
+  } else {
+    // If no instance exists, create one safely
+    const newModal = new bootstrap.Modal(modalElement);
+    newModal.hide();
+  }
+} else {
+  console.warn('Modal element not found for button:', button);
+}
+
+       
         // Reload page to show new contract
         setTimeout(() => location.reload(), 1000);
       }
@@ -201,6 +213,7 @@ const OrderManager = {
         ? error.message.split('400: ')[1] 
         : 'Failed to place order. Please try again.';
       VendorConnect.showAlert(errorMessage, 'danger');
+   
     } finally {
       VendorConnect.hideLoading(button);
     }

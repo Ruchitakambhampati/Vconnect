@@ -1,4 +1,4 @@
-
+<!-- 
 
 <div class="container">
     <div class="row justify-content-center">
@@ -68,6 +68,106 @@
                             <%= __('auth.login.noAccount') %>
                             <a href="/auth/register" class="text-decoration-none">
                                 <%= __('auth.login.registerLink') %>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    border-radius: 16px;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.1);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), #3b82f6);
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #1d4ed8, var(--primary-color));
+    transform: translateY(-1px);
+}
+</style> -->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <i data-feather="log-in" style="width: 48px; height: 48px;" class="text-primary mb-3"></i>
+                        <h2 class="h3 mb-2">Login to Your Account</h2>
+                        <p class="text-muted">Enter your credentials to access your dashboard.</p>
+                    </div>
+
+                    <% if (error) { %>
+                        <div class="alert alert-danger" role="alert">
+                            <i data-feather="alert-circle" class="me-2" style="width: 16px; height: 16px;"></i>
+                            <%= error %>
+                        </div>
+                    <% } %>
+
+                    <form action="/auth/login" method="POST" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">
+                                <i data-feather="mail" class="me-1" style="width: 16px; height: 16px;"></i>
+                                Email Address
+                            </label>
+                            <input 
+                                type="email" 
+                                class="form-control" 
+                                id="email" 
+                                name="email" 
+                                placeholder="Enter your email"
+                                required
+                                autocomplete="email"
+                            >
+                            <div class="invalid-feedback">
+                                Email is required.
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="password" class="form-label">
+                                <i data-feather="lock" class="me-1" style="width: 16px; height: 16px;"></i>
+                                Password
+                            </label>
+                            <input 
+                                type="password" 
+                                class="form-control" 
+                                id="password" 
+                                name="password" 
+                                placeholder="Enter your password"
+                                required
+                                autocomplete="current-password"
+                            >
+                            <div class="invalid-feedback">
+                                Password is required.
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 mb-3">
+                            <i data-feather="log-in" class="me-2" style="width: 16px; height: 16px;"></i>
+                            Log In
+                        </button>
+                    </form>
+
+                    <div class="text-center">
+                        <p class="text-muted mb-0">
+                            Don't have an account?
+                            <a href="/auth/register" class="text-decoration-none">
+                                Register here
                             </a>
                         </p>
                     </div>

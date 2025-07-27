@@ -217,7 +217,9 @@ class Order {
         AND DATE(o.delivery_date) = CURRENT_DATE
         AND o.status = 'delivered'
     `;
+    
     const result = await pool.query(query, [wholesalerId]);
+    
     return parseFloat(result.rows[0].earnings);
   }
 

@@ -1,36 +1,39 @@
-<!-- Additional scripts and footer content can be placed here -->
+<!-- Additional scripts and footer content -->
 
-<!-- Analytics placeholder -->
+<!-- Analytics Integration Placeholder -->
 <script>
-  // Google Analytics or other analytics code would go here
+  // You can add Google Analytics or other tracking scripts here
   // Example:
-  // gtag('config', 'GA_MEASUREMENT_ID');
+  // gtag('config', 'YOUR-GA-MEASUREMENT-ID');
 </script>
 
-<!-- Service Worker Registration (for PWA) -->
+<!-- PWA: Register Service Worker -->
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('/sw.js')
         .then((registration) => {
-          console.log('SW registered: ', registration);
+          console.log('Service Worker registered successfully:', registration);
         })
         .catch((registrationError) => {
-          console.log('SW registration failed: ', registrationError);
+          console.log('Service Worker registration failed:', registrationError);
         });
     });
   }
 </script>
 
-<!-- Emergency contact or support information -->
+<!-- Emergency Contact Info (Hidden) -->
 <div class="d-none" id="emergency-contacts">
-  <div data-support-phone="+91-1234567890" data-support-email="support@vendorconnect.com"></div>
+  <div 
+    data-support-phone="+91-1234567890" 
+    data-support-email="support@vendorconnect.com">
+  </div>
 </div>
 
-<!-- Toast notifications container -->
+<!-- Toast Notifications (appear at bottom right) -->
 <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toast-container"></div>
 
-<!-- Loading overlay -->
+<!-- Loading Spinner Overlay -->
 <div id="loading-overlay" class="d-none position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50" style="z-index: 9999;">
   <div class="d-flex justify-content-center align-items-center h-100">
     <div class="spinner-border text-light" role="status">
