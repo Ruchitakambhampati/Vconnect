@@ -68,7 +68,7 @@
                     <div class="d-flex align-items-center">
                         <div class="flex-grow-1">
                             <div class="fw-bold h4 text-warning">
-                                <%= contracts.reduce((sum, c) => sum + (c.total_orders || 0), 0) %>
+                                <%= contracts.reduce((sum, c) => sum + (parseInt(c.total_orders) || 0), 0) %>
                             </div>
                             <div class="text-muted small">
                                 <i data-feather="shopping-cart" class="me-1"></i>
